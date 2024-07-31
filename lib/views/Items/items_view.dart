@@ -2,17 +2,19 @@ import 'package:cjowner/components/customNavButton.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class ItemsView extends StatelessWidget {
   const ItemsView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:const Color(0xFFF1F1F1),
+      backgroundColor: const Color(0xFFF1F1F1),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Items",style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          "Items",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -44,9 +46,8 @@ class ItemsView extends StatelessWidget {
               onTap: () {
                 GoRouter.of(context).pushNamed('viewItems');
               },
-            ),     
+            ),
           ],
-          
         ),
       ),
     );
