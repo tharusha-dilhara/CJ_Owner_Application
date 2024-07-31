@@ -20,7 +20,7 @@ class ItemsView extends StatelessWidget {
           children: [
             const SizedBox(height: 15),
             CustomListTile(
-              leadingIcon: Icons.add_to_photos,
+              leadingIcon: Icons.add_box,
               title: 'Items In',
               subtitle: 'Items in description',
               onTap: () {
@@ -29,7 +29,7 @@ class ItemsView extends StatelessWidget {
             ),
             const SizedBox(height: 18),
             CustomListTile(
-              leadingIcon: Icons.insert_comment_sharp,
+              leadingIcon: Icons.book,
               title: 'Pre Orders',
               subtitle: 'Preorders in description',
               onTap: () {
@@ -38,7 +38,7 @@ class ItemsView extends StatelessWidget {
             ),
             const SizedBox(height: 18),
             CustomListTile(
-              leadingIcon: Icons.add_to_photos,
+              leadingIcon: Icons.view_agenda,
               title: 'View Items',
               subtitle: 'View items description',
               onTap: () {
