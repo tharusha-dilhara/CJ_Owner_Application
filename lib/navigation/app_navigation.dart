@@ -51,23 +51,23 @@ class AppNavigation {
   static final _shellNavigatorReports =
       GlobalKey<NavigatorState>(debugLabel: 'shellReports');
 
+
+
   // GoRouter configuration
   static final GoRouter router = GoRouter(
     initialLocation: initial,
-    // redirect: (context, state) async {
-      
-    //   final String? token = await AuthService.getToken();
-    //   final bool isAuthenticated = token != null;
+    redirect: (context, state) async {
+      final String? token = await AuthService.getToken();
+      final bool isAuthenticated = token != null;
 
-
-    //   if (isAuthenticated) {
-        
-    //     AppRouter.router.refresh();
-    //   } else {
-    //     return "/login";
-    //   }
-
-    // },
+      if (isAuthenticated ) {
+        return null;
+      } else if (!isAuthenticated) {
+        return "/login";
+      } else {
+        return null;
+      }
+    },
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
     routes: [

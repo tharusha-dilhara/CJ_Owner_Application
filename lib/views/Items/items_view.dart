@@ -13,7 +13,6 @@ class ItemsView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Items",style: TextStyle(fontWeight: FontWeight.bold),),
-        toolbarHeight: 80,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

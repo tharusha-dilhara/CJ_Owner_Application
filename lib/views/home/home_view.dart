@@ -15,13 +15,13 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: Color(0xFFF1F1F1),
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("Home",style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              await AuthService.logout();
+              await AuthService.applogout();
               context.pushReplacementNamed('login');
             },
           ),

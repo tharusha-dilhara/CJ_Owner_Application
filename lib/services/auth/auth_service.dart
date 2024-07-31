@@ -1,13 +1,14 @@
 import 'dart:convert';
+import 'package:cjowner/config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static const String _baseUrl = 'http://54.87.237.56/api/owner';
+  static const String _baseUrl = '${Config.baseurl}/owner';
 
   // Login API Call
-  static Future<String?> login(String username, String password) async {
+  static Future<String?> applogin(String username, String password) async {
     try {
       final response = await http.post(
         Uri.parse('$_baseUrl/login'),
@@ -39,11 +40,16 @@ class AuthService {
     return prefs.getString('jwt_token');
   }
 
-  static Future<void> logout() async {
+  static Future<void> applogout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // Remove the JWT token from SharedPreferences
     await prefs.remove('jwt_token');
   }
+
+  
+
+
+  
 
 
   

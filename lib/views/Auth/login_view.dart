@@ -24,7 +24,7 @@ class _LoginViewState extends State<LoginView> {
     String password = _passwordController.text.trim();
 
     try {
-      String? token = await AuthService.login(username, password);
+      String? token = await AuthService.applogin(username, password);
 
       setState(() {
         _isLoading = false;
@@ -35,7 +35,7 @@ class _LoginViewState extends State<LoginView> {
         await AuthService.storeToken(token);
 
         // Navigate to Home Screen
-        context.pushReplacementNamed('home');
+        GoRouter.of(context).go('/home');
         
       } else {
         // Show error message if login fails
