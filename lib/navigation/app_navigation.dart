@@ -132,7 +132,7 @@ class AppNavigation {
                             pageBuilder: (context, state) {
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
-                                child: const ItemsinView(),
+                                child: const AdditemView(),
                                 transitionsBuilder: (
                                   context,
                                   animation,

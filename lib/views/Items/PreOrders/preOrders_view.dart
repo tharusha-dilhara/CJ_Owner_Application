@@ -8,8 +8,8 @@ class PreordersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Preorders View"),
         centerTitle: true,
+        title: const Text("Preorders",style: TextStyle(fontWeight: FontWeight.bold),),
       ),
       body: Center(child: Text("Preorders View")),
     );

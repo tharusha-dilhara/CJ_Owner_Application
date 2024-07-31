@@ -13,7 +13,6 @@ class ItemsinView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Items In",style: TextStyle(fontWeight: FontWeight.bold),),
-        toolbarHeight: 80,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -25,7 +24,7 @@ class ItemsinView extends StatelessWidget {
               title: 'Add Stock',
               subtitle: 'Items in description',
               onTap: () {
-                GoRouter.of(context).pushNamed('itemsIn');
+                GoRouter.of(context).pushNamed('addStock');
               },
             ),
             const SizedBox(height: 18),
@@ -34,7 +33,7 @@ class ItemsinView extends StatelessWidget {
               title: 'Verify Items',
               subtitle: 'Items in description',
               onTap: () {
-                GoRouter.of(context).pushNamed('itemsIn');
+                GoRouter.of(context).pushNamed('verifyItems');
               },
             ),
             const SizedBox(height: 18),
@@ -43,7 +42,7 @@ class ItemsinView extends StatelessWidget {
               title: 'Pricing Items',
               subtitle: 'Items in description',
               onTap: () {
-                GoRouter.of(context).pushNamed('itemsIn');
+                GoRouter.of(context).pushNamed('pricingItem');
               },
             ),
             const SizedBox(height: 18),
@@ -52,7 +51,7 @@ class ItemsinView extends StatelessWidget {
               title: 'Register items',
               subtitle: 'Items in description',
               onTap: () {
-                GoRouter.of(context).pushNamed('itemsIn');
+                GoRouter.of(context).pushNamed('registerItems');
               },
             ),
 
