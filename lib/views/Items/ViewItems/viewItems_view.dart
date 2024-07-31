@@ -8,8 +8,8 @@ class ViewitemsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("View items View"),
         centerTitle: true,
+        title: const Text("View items",style: TextStyle(fontWeight: FontWeight.bold),),
       ),
       body: Center(child: Text("View items View")),
     );
