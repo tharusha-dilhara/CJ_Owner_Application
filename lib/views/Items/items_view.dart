@@ -1,0 +1,55 @@
+import 'package:cjowner/components/customNavButton.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+
+class ItemsView extends StatelessWidget {
+  const ItemsView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor:const Color(0xFFF1F1F1),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Items",style: TextStyle(fontWeight: FontWeight.bold),),
+        toolbarHeight: 80,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 15),
+            CustomListTile(
+              leadingIcon: Icons.add_to_photos,
+              title: 'Items In',
+              subtitle: 'Items in description',
+              onTap: () {
+                GoRouter.of(context).pushNamed('itemsIn');
+              },
+            ),
+            const SizedBox(height: 18),
+            CustomListTile(
+              leadingIcon: Icons.insert_comment_sharp,
+              title: 'Pre Orders',
+              subtitle: 'Preorders in description',
+              onTap: () {
+                GoRouter.of(context).pushNamed('preOrders');
+              },
+            ),
+            const SizedBox(height: 18),
+            CustomListTile(
+              leadingIcon: Icons.add_to_photos,
+              title: 'View Items',
+              subtitle: 'View items description',
+              onTap: () {
+                GoRouter.of(context).pushNamed('viewItems');
+              },
+            ),     
+          ],
+          
+        ),
+      ),
+    );
+  }
+}
