@@ -67,31 +67,33 @@ class _VerifyitemsViewState extends State<VerifyitemsView> {
                     ),
                     child: ListTile(
                       onTap: () {
-                        
                         GoRouter.of(context).pushNamed(
                           'verifyItem',
-                          extra: stockInfo, // Pass the StockInfo object
+                          extra: {
+                            'items': stockInfo.items,
+                            'stockId': stockInfos[index].stockOrderIndex,
+                          },
                         );
                       },
+                      minTileHeight: 100,
+                      horizontalTitleGap: 20,
+                      minVerticalPadding: 20,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0)),
+                          borderRadius: BorderRadius.circular(8.0)),
                       title: Text(
-                        'Stock Order Index: ${stockInfo.stockOrderIndex}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold, // Bold title text
-                          color: Colors.black, // Title text color
-                        ),
-                      ),
-                      subtitle: Text(
                         'Total Items Price: ${stockInfo.totalItemsPrice.toStringAsFixed(2)}\nItems Count: ${stockInfo.itemsCount}',
                         style: TextStyle(
-                          color: Colors.grey[600], // Subtitle text color
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black, // Subtitle text color
                         ),
                       ),
-                      trailing: Column(
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('${stockInfo.customDate}'),
-                          Text('${stockInfo.customTime}'),
+                          SizedBox(height: 10,),
+                          Text('${stockInfo.customDate}',style: TextStyle(fontSize: 14)),
+                          Text('${stockInfo.customTime}',style: TextStyle(fontSize: 14)),
                         ],
                       ), // Trailing info icon
                     ),
