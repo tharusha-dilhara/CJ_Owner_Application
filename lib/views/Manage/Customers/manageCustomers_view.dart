@@ -7,6 +7,10 @@ class ManagecustomersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Manage Customers",style: TextStyle(fontWeight: FontWeight.bold),),
+      ),
       body: Center(child: Text("Manage Customers View")),
     );
   }

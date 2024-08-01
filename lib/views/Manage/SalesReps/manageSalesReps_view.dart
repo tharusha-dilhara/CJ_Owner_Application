@@ -7,6 +7,10 @@ class ManagesalesrepsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Manage salesreps",style: TextStyle(fontWeight: FontWeight.bold),),
+      ),
       body: Center(child: Text("Manage salesreps View")),
     );
   }

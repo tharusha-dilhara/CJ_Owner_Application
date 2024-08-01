@@ -7,6 +7,10 @@ class BranchsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("branchs",style: TextStyle(fontWeight: FontWeight.bold),),
+      ),
       body: Center(child: Text("branchs View")),
     );
   }
