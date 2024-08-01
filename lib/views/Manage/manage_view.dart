@@ -20,7 +20,7 @@ class ManageView extends StatelessWidget {
           children: [
             const SizedBox(height: 15),
             CustomListTile(
-              leadingIcon: Icons.add_to_photos,
+              leadingIcon: Icons.people,
               title: 'Sales Reps',
               subtitle: 'Sales Reps description',
               onTap: () {
@@ -29,7 +29,7 @@ class ManageView extends StatelessWidget {
             ),
             const SizedBox(height: 18),
             CustomListTile(
-              leadingIcon: Icons.insert_comment_sharp,
+              leadingIcon: Icons.account_balance,
               title: 'Branch',
               subtitle: 'Branch in description',
               onTap: () {
@@ -38,7 +38,7 @@ class ManageView extends StatelessWidget {
             ),
             const SizedBox(height: 18),
             CustomListTile(
-              leadingIcon: Icons.add_to_photos,
+              leadingIcon: Icons.people,
               title: 'customers',
               subtitle: 'customers description',
               onTap: () {
