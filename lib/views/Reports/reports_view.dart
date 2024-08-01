@@ -34,7 +34,7 @@ class ReportsView extends StatelessWidget {
             ),
             const SizedBox(height: 18),
             CustomListTile(
-              leadingIcon: Icons.person,
+              leadingIcon: Icons.analytics,
               title: 'Sales Reps Reports',
               subtitle: 'Sales Reps Reports',
               onTap: () {
