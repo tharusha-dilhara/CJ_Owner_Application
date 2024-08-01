@@ -72,15 +72,19 @@ class _BranchsViewState extends State<BranchsView> {
                             itemCount: _branches.length,
                             itemBuilder: (context, index) {
                               final branch = _branches[index];
-                              return Container(  
+                              print(branch.branchId);
+                              print(branch.branchName);
+                              return Container(
                                 margin: EdgeInsets.symmetric(vertical: 8.0),
                                 height: 55,
                                 decoration: BoxDecoration(
                                   color: Colors.white, // Background color
-                                  borderRadius: BorderRadius.circular(12.0), // Rounded corners
+                                  borderRadius: BorderRadius.circular(
+                                      12.0), // Rounded corners
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey.withOpacity(0.2), // Shadow color
+                                      color: Colors.grey
+                                          .withOpacity(0.2), // Shadow color
                                       spreadRadius: 2, // Shadow spread
                                       blurRadius: 20, // Shadow blur
                                       offset: Offset(0, 3), // Shadow offset
@@ -88,15 +92,21 @@ class _BranchsViewState extends State<BranchsView> {
                                   ],
                                 ),
                                 child: ListTile(
-                                  onTap: (){
+                                  onTap: () {
                                     print(branch);
-                                    GoRouter.of(context).pushNamed('manageBranch', extra: branch);
+                                    GoRouter.of(context).pushNamed(
+                                      'manageBranch',
+                                      extra: {
+                                        'branchId': branch.branchId,
+                                        'branchName':branch.branchName
+                                      },
+                                    );
                                   },
                                   title: Text(
                                     branch.branchName,
                                     style: TextStyle(
                                       fontWeight:
-                                      FontWeight.bold, // Bold title text
+                                          FontWeight.bold, // Bold title text
                                       color: Colors.black, // Title text color
                                     ),
                                   ),

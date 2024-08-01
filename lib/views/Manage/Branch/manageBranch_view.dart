@@ -1,11 +1,12 @@
+import 'package:cjowner/models/branch.dart';
 import 'package:flutter/material.dart';
 
 class ManagebranchView extends StatefulWidget {
 
-  final List<Map<String, dynamic>> branch ;
+  final String branchName;
   final String branchId;
 
-  const ManagebranchView({Key? key, required this.branch, required this.branchId});
+  const ManagebranchView({Key? key, required this.branchName, required this.branchId});
 
   @override
   State<ManagebranchView> createState() => _ManagebranchViewState();
@@ -19,7 +20,7 @@ class _ManagebranchViewState extends State<ManagebranchView> {
         centerTitle: true,
         title: const Text("Manage branchs",style: TextStyle(fontWeight: FontWeight.bold),),
       ),
-      body: Center(child: Text("${widget.branchId} ${widget.branch}"),
+      body: Center(child: Text("${widget.branchId} ${widget.branchName}"),
       )
     );
     

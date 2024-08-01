@@ -1,3 +1,4 @@
+import 'package:cjowner/models/branch.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:cjowner/views/Auth/login_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/AddStock/addCartItems_view.dart';
@@ -33,12 +34,10 @@ import 'package:go_router/go_router.dart';
 import 'package:cjowner/views/home/home_view.dart';
 import 'package:cjowner/views/wrapper/main_wrapper.dart';
 
-
 class AppNavigation {
   AppNavigation._();
 
   static String initial = "/home";
-
 
   // Private navigators
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -51,8 +50,6 @@ class AppNavigation {
   static final _shellNavigatorReports =
       GlobalKey<NavigatorState>(debugLabel: 'shellReports');
 
-
-
   // GoRouter configuration
   static final GoRouter router = GoRouter(
     initialLocation: initial,
@@ -60,7 +57,7 @@ class AppNavigation {
       final String? token = await AuthService.getToken();
       final bool isAuthenticated = token != null;
 
-      if (isAuthenticated ) {
+      if (isAuthenticated) {
         return null;
       } else if (!isAuthenticated) {
         return "/login";
@@ -75,9 +72,10 @@ class AppNavigation {
       GoRoute(
         path: '/login',
         name: 'login',
-        builder: (BuildContext context, GoRouterState state) => const LoginView(),
+        builder: (BuildContext context, GoRouterState state) =>
+            const LoginView(),
       ),
-      
+
       /// MainWrapper
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -205,9 +203,13 @@ class AppNavigation {
                                   path: "verifyItem",
                                   name: "verifyItem",
                                   pageBuilder: (context, state) {
-                                    final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
-                                    final List<Map<String, dynamic>> items = List<Map<String, dynamic>>.from(extra['items']);
-                                    final String stockId = extra['stockId'] as String; // Retrieve `stockId` here
+                                    final Map<String, dynamic> extra =
+                                        state.extra as Map<String, dynamic>;
+                                    final List<Map<String, dynamic>> items =
+                                        List<Map<String, dynamic>>.from(
+                                            extra['items']);
+                                    final String stockId = extra['stockId']
+                                        as String; // Retrieve `stockId` here
                                     return CustomTransitionPage<void>(
                                       key: state.pageKey,
                                       child: VerifyitemView(
@@ -466,14 +468,17 @@ class AppNavigation {
                             path: "manageBranch",
                             name: "manageBranch",
                             pageBuilder: (context, state) {
-                               final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
-                               final List<Map<String, dynamic>> branch = List<Map<String, dynamic>>.from(extra['branch']);
-                               final String branchId = extra['branchId'] as String;
+                              final Map<String, dynamic> extra =
+                                  state.extra as Map<String, dynamic>;
+
+                              final String branchId =extra["branchId"];
+                              final String branchName =extra["branchName"];
+                              
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
-                                child:  ManagebranchView(
-                                  branch:branch,
-                                  branchId:branchId,
+                                child: ManagebranchView(
+                                  branchId: branchId,
+                                  branchName : branchName,
                                 ),
                                 transitionsBuilder: (
                                   context,
