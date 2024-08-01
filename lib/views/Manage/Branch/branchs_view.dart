@@ -89,7 +89,8 @@ class _BranchsViewState extends State<BranchsView> {
                                 ),
                                 child: ListTile(
                                   onTap: (){
-                                    GoRouter.of(context).pushNamed('manageBranch ', extra: branch);
+                                    print(branch);
+                                    GoRouter.of(context).pushNamed('manageBranch', extra: branch);
                                   },
                                   title: Text(
                                     branch.branchName,
