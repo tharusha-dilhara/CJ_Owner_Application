@@ -205,9 +205,15 @@ class AppNavigation {
                                   path: "verifyItem",
                                   name: "verifyItem",
                                   pageBuilder: (context, state) {
+                                    final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+                                    final List<Map<String, dynamic>> items = List<Map<String, dynamic>>.from(extra['items']);
+                                    final String stockId = extra['stockId'] as String; // Retrieve `stockId` here
                                     return CustomTransitionPage<void>(
                                       key: state.pageKey,
-                                      child: const VerifyitemView(),
+                                      child: VerifyitemView(
+                                        items: items,
+                                        stockId: stockId,
+                                      ),
                                       transitionsBuilder: (
                                         context,
                                         animation,
@@ -284,7 +290,7 @@ class AppNavigation {
                           pageBuilder: (context, state) {
                             return CustomTransitionPage<void>(
                               key: state.pageKey,
-                              child: const RegisteritemsView(),
+                              child: const RegisterItemsView(),
                               transitionsBuilder: (
                                 context,
                                 animation,

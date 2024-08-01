@@ -54,4 +54,86 @@ class StockService {
       throw Exception('Failed to load stock data');
     }
   }
+
+
+  static Future<bool> updateVerifyItems(String id, List<Map<String, dynamic>> itemsUpdates) async {
+    final url = 'http://54.87.237.56/api/stock/updateVerifyItems';
+    final String? token = await AuthService.getToken();
+
+    // print("-----------------------------------------------------");
+    // print(id);
+    // print(itemsUpdates);
+
+    final body = jsonEncode({
+      "id": id,
+      "itemsUpdates": itemsUpdates,
+    });
+
+    print(body);
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          if (token != null) 'Authorization': 'Bearer $token',
+        },
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        print('Items updated successfully');
+        return true;
+      } else {
+        print('Failed to update items: ${response.body}');
+        return false;
+      }
+    } catch (error) {
+      print('Error updating items: $error');
+      return false;
+    }
+  }
+
+
+
+  /// Function to register items
+  static Future<http.Response> registerItems({
+    required String itemName,
+    required String companyName,
+    required String companyAddress,
+  }) async {
+    final String? token = await AuthService.getToken();
+    final url = Uri.parse('${Config.baseurl}/stock/registerItems');
+    final headers = <String, String>{
+      'Content-Type': 'application/json',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
+    final body = jsonEncode({
+      'itemName': itemName,
+      'companyName': companyName,
+      'companyAddress': companyAddress,
+    });
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Success
+        print('Item registered successfully: ${response.body}');
+      } else {
+        // Handle error
+        print('Failed to register item: ${response.statusCode}');
+      }
+      
+      return response;
+    } catch (e) {
+      // Handle exception
+      throw Exception('Failed to register item: $e');
+    }
+  }
+
 }

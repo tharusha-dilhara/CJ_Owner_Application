@@ -14,7 +14,7 @@ class _AdditemViewState extends State<AdditemView> {
   final _itemNameController = TextEditingController();
   final _qtyController = TextEditingController();
   final _rateController = TextEditingController();
-  
+
   final List<StockItem> _items = [];
   final StockService _stockService = StockService();
   bool _isCompleting = false;
@@ -119,7 +119,11 @@ class _AdditemViewState extends State<AdditemView> {
                 color: Colors.green,
                 height: 55,
                 onPressed: _addItem,
-                child: Text("Add Item",style: TextStyle(fontSize: 26)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      12.0), // Adjust the radius as needed
+                ),
+                child: Text("Add Item", style: TextStyle(fontSize: 26, color: Colors.white)),
               ),
               SizedBox(height: 20),
               if (_items.isNotEmpty)
@@ -145,8 +149,15 @@ class _AdditemViewState extends State<AdditemView> {
                 color: Colors.green,
                 height: 55,
                 onPressed: _isCompleting ? null : _completeAndAddStock,
-                child: Text(_isCompleting ? "Completing..." : "Complete",style: TextStyle(fontSize: 26)),
-              ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      12.0), // Adjust the radius as needed
+                ),
+                child: Text(
+                  _isCompleting ? "Completing..." : "Complete",
+                  style: TextStyle(fontSize: 26,color: Colors.white),
+                ),
+              )
             ],
           ),
         ),
