@@ -66,6 +66,8 @@ class _BranchsViewState extends State<BranchsView> {
                   ? Center(child: CircularProgressIndicator())
                   : _errorMessage.isNotEmpty
                       ? Center(child: Text('Error: $_errorMessage'))
+                      : _branches.isEmpty
+                            ? const Center(child: Text('No data available'))
                       : Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: ListView.builder(
@@ -77,8 +79,7 @@ class _BranchsViewState extends State<BranchsView> {
                                 height: 55,
                                 decoration: BoxDecoration(
                                   color: Colors.white, // Background color
-                                  borderRadius: BorderRadius.circular(
-                                      12.0), // Rounded corners
+                                  borderRadius: BorderRadius.circular(12.0), // Rounded corners
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey
