@@ -12,7 +12,7 @@ class ManageView extends StatelessWidget {
       backgroundColor: Color(0xFFF1F1F1),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Manage")
+        title: const Text("Manage",style: TextStyle(fontWeight: FontWeight.bold))
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

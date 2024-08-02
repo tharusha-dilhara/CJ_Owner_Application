@@ -9,7 +9,7 @@ class ReportsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF1F1F1),
-      appBar: AppBar(centerTitle: true, title: const Text("Reports")),
+      appBar: AppBar(centerTitle: true, title: const Text("Reports", style: TextStyle(fontWeight: FontWeight.bold))),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
