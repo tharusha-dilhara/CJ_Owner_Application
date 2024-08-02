@@ -1,3 +1,4 @@
+import 'package:cjowner/components/customNavButton.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,10 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: Color(0xFFF1F1F1),
       appBar: AppBar(
-        title: const Text("Home",style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          "Home",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -25,21 +29,66 @@ class _HomeViewState extends State<HomeView> {
               context.pushReplacementNamed('login');
             },
           ),
-        ]
+        ],
       ),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            
-            const Text(
-              "Home",
-              style: TextStyle(fontSize: 30),
-            ),
-            
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(28.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 30),
+              const Text(
+                "Hello, Mr. Weerakoon",
+                style: TextStyle(fontSize: 30),
+              ),
+              SizedBox(height: 20),
+              CustomListTile(
+                leadingIcon: Icons.view_agenda,
+                title: 'View Items',
+                subtitle: 'View items description',
+                onTap: () {
+                  GoRouter.of(context).pushNamed('viewItems');
+                },
+              ),
+              SizedBox(height: 10),
+              CustomListTile(
+                leadingIcon: Icons.verified,
+                title: 'Verify Items',
+                subtitle: 'Items in description',
+                onTap: () {
+                  GoRouter.of(context).pushNamed('verifyItems');
+                },
+              ),
+              SizedBox(height: 10),
+              CustomListTile(
+                leadingIcon: Icons.verified,
+                title: 'Customers',
+                subtitle: 'Items in description',
+                onTap: () {
+                  GoRouter.of(context).pushNamed('customers');
+                },
+              ),
+              SizedBox(height: 10),
+              CustomListTile(
+                leadingIcon: Icons.verified,
+                title: 'Sales Reps',
+                subtitle: 'Items in description',
+                onTap: () {
+                  GoRouter.of(context).pushNamed('salesReps');
+                },
+              ),
+              SizedBox(height: 10),
+              CustomListTile(
+                leadingIcon: Icons.verified,
+                title: 'branches',
+                subtitle: 'Items in description',
+                onTap: () {
+                  GoRouter.of(context).pushNamed('branches');
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
