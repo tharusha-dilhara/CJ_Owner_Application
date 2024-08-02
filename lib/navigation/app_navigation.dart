@@ -468,12 +468,9 @@ class AppNavigation {
                             path: "manageBranch",
                             name: "manageBranch",
                             pageBuilder: (context, state) {
-                              final Map<String, dynamic> extra =
-                                  state.extra as Map<String, dynamic>;
-
+                              final Map<String, dynamic> extra =state.extra as Map<String, dynamic>;
                               final String branchId =extra["branchId"];
-                              final String branchName =extra["branchName"];
-                              
+                              final String branchName =extra["branchName"];                            
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
                                 child: ManagebranchView(

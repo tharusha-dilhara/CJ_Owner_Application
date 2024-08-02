@@ -72,8 +72,6 @@ class _BranchsViewState extends State<BranchsView> {
                             itemCount: _branches.length,
                             itemBuilder: (context, index) {
                               final branch = _branches[index];
-                              print(branch.branchId);
-                              print(branch.branchName);
                               return Container(
                                 margin: EdgeInsets.symmetric(vertical: 8.0),
                                 height: 55,
@@ -93,12 +91,11 @@ class _BranchsViewState extends State<BranchsView> {
                                 ),
                                 child: ListTile(
                                   onTap: () {
-                                    print(branch);
                                     GoRouter.of(context).pushNamed(
                                       'manageBranch',
                                       extra: {
                                         'branchId': branch.branchId,
-                                        'branchName':branch.branchName
+                                        'branchName': branch.branchName
                                       },
                                     );
                                   },
