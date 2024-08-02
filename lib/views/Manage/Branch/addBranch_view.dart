@@ -1,6 +1,7 @@
 import 'package:cjowner/models/branch.dart';
 import 'package:cjowner/services/branch/branchService.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AddbranchView extends StatefulWidget {
   const AddbranchView({super.key});
@@ -29,6 +30,8 @@ class _AddbranchViewState extends State<AddbranchView> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Branch added successfully!')),
         );
+
+        GoRouter.of(context).pushNamed("branches");
 
         // Clear the text fields
         setState(() {

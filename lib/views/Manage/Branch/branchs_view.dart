@@ -66,21 +66,20 @@ class _BranchsViewState extends State<BranchsView> {
                   ? Center(child: CircularProgressIndicator())
                   : _errorMessage.isNotEmpty
                       ? Center(child: Text('Error: $_errorMessage'))
+                      : _branches.isEmpty
+                            ? const Center(child: Text('No data available'))
                       : Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: ListView.builder(
                             itemCount: _branches.length,
                             itemBuilder: (context, index) {
                               final branch = _branches[index];
-                              print(branch.branchId);
-                              print(branch.branchName);
                               return Container(
                                 margin: EdgeInsets.symmetric(vertical: 8.0),
                                 height: 55,
                                 decoration: BoxDecoration(
                                   color: Colors.white, // Background color
-                                  borderRadius: BorderRadius.circular(
-                                      12.0), // Rounded corners
+                                  borderRadius: BorderRadius.circular(12.0), // Rounded corners
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey
@@ -93,12 +92,11 @@ class _BranchsViewState extends State<BranchsView> {
                                 ),
                                 child: ListTile(
                                   onTap: () {
-                                    print(branch);
                                     GoRouter.of(context).pushNamed(
                                       'manageBranch',
                                       extra: {
                                         'branchId': branch.branchId,
-                                        'branchName':branch.branchName
+                                        'branchName': branch.branchName
                                       },
                                     );
                                   },

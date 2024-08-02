@@ -31,14 +31,16 @@ class BranchService {
   }
 
   // Read branch details
-  Future<void> getBranch(String branchId) async {
+  Future<Branch> getBranch(String branchId) async {
     final url = Uri.parse('$baseUrl/getBranchById/$branchId');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      print('Branch details: ${response.body}');
+      return Branch.fromJson(json.decode(response.body));
     } else {
-      print('Failed to fetch branch details: ${response.body}');
+      final responseBody = jsonDecode(response.body);
+      throw Exception(
+          'Failed to fetch branch details: ${responseBody['message'] ?? response.body}');
     }
   }
 
@@ -55,6 +57,10 @@ class BranchService {
 
     if (response.statusCode == 200) {
       print('Branch updated successfully!');
+    } else if (response.statusCode == 400) {
+      final responseBody = jsonDecode(response.body);
+      throw Exception(responseBody['message'] ??
+          'Failed to update branch or branch already exists');
     } else {
       print('Failed to update branch: ${response.body}');
     }
@@ -68,7 +74,9 @@ class BranchService {
     if (response.statusCode == 200) {
       print('Branch deleted successfully!');
     } else {
-      print('Failed to delete branch: ${response.body}');
+      final responseBody = jsonDecode(response.body);
+      throw Exception(
+          'Failed to delete branch: ${responseBody['message'] ?? response.body}');
     }
   }
 

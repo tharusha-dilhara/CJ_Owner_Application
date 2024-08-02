@@ -1,4 +1,5 @@
 import 'package:cjowner/models/branch.dart';
+import 'package:cjowner/models/customer.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:cjowner/views/Auth/login_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/AddStock/addCartItems_view.dart';
@@ -468,12 +469,9 @@ class AppNavigation {
                             path: "manageBranch",
                             name: "manageBranch",
                             pageBuilder: (context, state) {
-                              final Map<String, dynamic> extra =
-                                  state.extra as Map<String, dynamic>;
-
+                              final Map<String, dynamic> extra =state.extra as Map<String, dynamic>;
                               final String branchId =extra["branchId"];
-                              final String branchName =extra["branchName"];
-                              
+                              final String branchName =extra["branchName"];                            
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
                                 child: ManagebranchView(
@@ -532,6 +530,7 @@ class AppNavigation {
                             path: "manageCustomers",
                             name: "manageCustomers",
                             pageBuilder: (context, state) {
+                              final Customer? customer = state.extra as Customer?;
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
                                 child: const ManagecustomersView(),
