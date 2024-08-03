@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'package:cjowner/config/config.dart';
 import 'package:cjowner/models/customer.dart';
+import 'package:cjowner/models/manageCustomer.dart';
 import 'package:http/http.dart' as http;
 
 class CustomerService {
   final String baseUrl = '${Config.baseurl}/customer';
 
 //get customers
-  Future<List<Customer>> getCustomers() async {
+  Future<List<manageCustomer>> getCustomers() async {
     final response = await http.get(Uri.parse('$baseUrl/getAllCustomers'));
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
-      return data.map((json) => Customer.fromJson(json)).toList();
+      return data.map((json) => manageCustomer.fromJson(json)).toList();
     } else {
       print('Failed to fetch customers: ${response.body}');
       throw Exception('Failed to load customers');
@@ -51,7 +52,7 @@ class CustomerService {
   }
 
 //update customer
-  Future<void> updateCustomer(String id, Customer customer) async {
+Future<void> updateCustomer(String id, manageCustomer customer) async {
     final response = await http.put(
       Uri.parse('$baseUrl/updateCustomer/$id'),
       headers: {'Content-Type': 'application/json'},
@@ -67,6 +68,7 @@ class CustomerService {
       throw Exception('Failed to update customer');
     }
   }
+
 
 //delete customer
   Future<void> deleteCustomer(String id) async {

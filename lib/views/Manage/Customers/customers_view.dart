@@ -1,4 +1,5 @@
 import 'package:cjowner/models/customer.dart';
+import 'package:cjowner/models/manageCustomer.dart';
 import 'package:cjowner/services/customer/customerService.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +13,7 @@ class CustomersView extends StatefulWidget {
 
 class _CustomersViewState extends State<CustomersView> {
   final CustomerService _customerService = CustomerService();
-  List<Customer> _customers = [];
+  List<manageCustomer> _customers = [];
   bool _isLoading = true;
   String _errorMessage = '';
 
@@ -93,6 +94,7 @@ class _CustomersViewState extends State<CustomersView> {
                                   ),
                                   child: ListTile(
                                     onTap: () {
+                                      print(customer);
                                       GoRouter.of(context).pushNamed(
                                         'manageCustomers',
                                          extra: customer,

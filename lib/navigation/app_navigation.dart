@@ -1,5 +1,6 @@
 import 'package:cjowner/models/branch.dart';
 import 'package:cjowner/models/customer.dart';
+import 'package:cjowner/models/manageCustomer.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:cjowner/views/Auth/login_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/AddStock/addCartItems_view.dart';
@@ -529,11 +530,11 @@ class AppNavigation {
                           GoRoute(
                             path: "manageCustomers",
                             name: "manageCustomers",
-                            pageBuilder: (context, state) {
-                              final Customer? customer = state.extra as Customer?;
+                            pageBuilder: (context, state) {  
+                              final manageCustomer customer = state.extra as manageCustomer;                           
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
-                                child: const ManagecustomersView(),
+                                child:  ManagecustomersView(customer: customer),
                                 transitionsBuilder: (
                                   context,
                                   animation,
