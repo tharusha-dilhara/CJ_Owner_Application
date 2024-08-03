@@ -87,6 +87,7 @@ class _HomeViewState extends State<HomeView> {
                   GoRouter.of(context).pushNamed('branches');
                 },
               ),
+              
             ],
           ),
         ),
