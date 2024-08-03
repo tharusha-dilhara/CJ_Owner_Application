@@ -8,6 +8,22 @@ class AddsalesrepsView extends StatefulWidget {
 }
 
 class _AddsalesrepsViewState extends State<AddsalesrepsView> {
+  TextEditingController _dobController = TextEditingController();
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        _dobController.text = "${picked.toLocal()}".split(' ')[0];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,13 +62,17 @@ class _AddsalesrepsViewState extends State<AddsalesrepsView> {
                 ),
                 SizedBox(height: 20),
                 TextField(
+                  controller: _dobController,
                   decoration: InputDecoration(
                     labelText: 'DOB',
                     border: OutlineInputBorder(),
                   ),
+                  readOnly: true,
+                  onTap: () => _selectDate(context),
                 ),
                 SizedBox(height: 20),
                 TextField(
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: 'Mobile Number',
                     border: OutlineInputBorder(),

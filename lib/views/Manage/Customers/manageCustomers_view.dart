@@ -6,7 +6,6 @@ import 'package:cjowner/models/customer.dart';
 import 'package:go_router/go_router.dart';
 
 class ManagecustomersView extends StatefulWidget {
-
   final manageCustomer customer;
 
   const ManagecustomersView({super.key, required this.customer});
@@ -16,7 +15,6 @@ class ManagecustomersView extends StatefulWidget {
 }
 
 class _ManagecustomersViewState extends State<ManagecustomersView> {
-
   late TextEditingController _shopNameController;
   late TextEditingController _ownerNameController;
   late TextEditingController _addressController;
@@ -24,6 +22,7 @@ class _ManagecustomersViewState extends State<ManagecustomersView> {
   late TextEditingController _mobileNumberController;
   late TextEditingController _landNumberController;
 
+  final CustomerService _customerService = CustomerService();
 
   // Function to update customer details
   Future<void> _updateCustomer() async {
@@ -39,7 +38,8 @@ class _ManagecustomersViewState extends State<ManagecustomersView> {
     );
 
     // Call the updateCustomer function from the service
-    bool success = await UpdateCustomerService.updateCustomer(widget.customer.id as String, updatedCustomer);
+    bool success = await UpdateCustomerService.updateCustomer(
+        widget.customer.id as String, updatedCustomer);
 
     // Show a success or failure message
     if (success) {
@@ -55,15 +55,35 @@ class _ManagecustomersViewState extends State<ManagecustomersView> {
     }
   }
 
+  // Function to delete customer
+  Future<void> _deleteCustomer() async {
+    try {
+      await _customerService.deleteCustomer(widget.customer.id
+          as String); // Use the instance to call deleteCustomer
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Customer deleted successfully')),
+      );
+      GoRouter.of(context).pushNamed('customers');
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to delete customer: ${e.toString()}')),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _shopNameController = TextEditingController(text: widget.customer.shopName);
-    _ownerNameController = TextEditingController(text: widget.customer.ownerName);
+    _ownerNameController =
+        TextEditingController(text: widget.customer.ownerName);
     _addressController = TextEditingController(text: widget.customer.address);
-    _berNumberController = TextEditingController(text: widget.customer.berNumber);
-    _mobileNumberController = TextEditingController(text: widget.customer.mobileNumber);
-    _landNumberController = TextEditingController(text: widget.customer.landNumber);
+    _berNumberController =
+        TextEditingController(text: widget.customer.berNumber);
+    _mobileNumberController =
+        TextEditingController(text: widget.customer.mobileNumber);
+    _landNumberController =
+        TextEditingController(text: widget.customer.landNumber);
   }
 
   @override
@@ -77,16 +97,13 @@ class _ManagecustomersViewState extends State<ManagecustomersView> {
     super.dispose();
   }
 
-
-
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Manage Customers", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text("Manage Customers",
+            style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -146,8 +163,18 @@ class _ManagecustomersViewState extends State<ManagecustomersView> {
                   minWidth: double.infinity,
                   color: Colors.green,
                   height: 55,
-                  onPressed:_updateCustomer,
-                  child: Text("Update Customer", style: TextStyle(fontSize: 26)),
+                  onPressed: _updateCustomer,
+                  child:
+                      Text("Update Customer", style: TextStyle(fontSize: 26)),
+                ),
+                SizedBox(height: 20),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  color: Colors.green,
+                  height: 55,
+                  onPressed: _deleteCustomer,
+                  child:
+                      Text("Delete Customer", style: TextStyle(fontSize: 26)),
                 ),
               ],
             ),

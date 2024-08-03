@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cjowner/config/config.dart';
 import 'package:http/http.dart' as http;
 import '../../models/branch.dart';
+import '../../services/auth/auth_service.dart';
 
 // Define the base URL of your API
 const String baseUrl = '${Config.baseurl}/branch';
@@ -9,22 +10,24 @@ const String baseUrl = '${Config.baseurl}/branch';
 class BranchService {
   // Create a new branch
   Future<void> createBranch(Branch branch) async {
+    final String? token = await AuthService.getToken();
+    final headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
     final url = Uri.parse('$baseUrl/addBranch');
     final response = await http.post(
       url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: headers,
       body: jsonEncode(branch.toJson()),
     );
 
     if (response.statusCode == 200) {
       print('Branch created successfully!');
     } else if (response.statusCode == 400) {
-      // Handle case where branch ID already exists
       final responseBody = jsonDecode(response.body);
       throw Exception(responseBody['message'] ??
-          'Failed to create branch or branch is already exist');
+          'Failed to create branch or branch already exists');
     } else {
       print('Failed to create branch: ${response.body}');
     }
@@ -32,8 +35,13 @@ class BranchService {
 
   // Read branch details
   Future<Branch> getBranch(String branchId) async {
+    final String? token = await AuthService.getToken();
+    final headers = {
+      'Content-Type': 'application/json',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
     final url = Uri.parse('$baseUrl/getBranchById/$branchId');
-    final response = await http.get(url);
+    final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
       return Branch.fromJson(json.decode(response.body));
@@ -46,12 +54,15 @@ class BranchService {
 
   // Update branch details
   Future<void> updateBranch(String branchId, String branchName) async {
+    final String? token = await AuthService.getToken();
+    final headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
     final url = Uri.parse('$baseUrl/updateBranch/$branchId');
     final response = await http.put(
       url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: headers,
       body: jsonEncode({'branchName': branchName}),
     );
 
@@ -68,8 +79,13 @@ class BranchService {
 
   // Delete a branch
   Future<void> deleteBranch(String branchId) async {
+    final String? token = await AuthService.getToken();
+    final headers = {
+      'Content-Type': 'application/json',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
     final url = Uri.parse('$baseUrl/deleteBranch/$branchId');
-    final response = await http.delete(url);
+    final response = await http.delete(url, headers: headers);
 
     if (response.statusCode == 200) {
       print('Branch deleted successfully!');
@@ -82,8 +98,13 @@ class BranchService {
 
   // Get all branches
   Future<List<Branch>> getAllBranches() async {
+    final String? token = await AuthService.getToken();
+    final headers = {
+      'Content-Type': 'application/json',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
     final url = Uri.parse('$baseUrl/getAllBranches');
-    final response = await http.get(url);
+    final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
