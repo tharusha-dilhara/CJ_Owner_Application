@@ -31,6 +31,7 @@ class manageCustomer {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'shopName': shopName,
       'ownerName': ownerName,
       'address': address,

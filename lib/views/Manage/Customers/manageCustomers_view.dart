@@ -1,7 +1,9 @@
 import 'package:cjowner/models/manageCustomer.dart';
 import 'package:cjowner/services/customer/customerService.dart';
+import 'package:cjowner/services/customer/updateCustomerServise.dart';
 import 'package:flutter/material.dart';
 import 'package:cjowner/models/customer.dart';
+import 'package:go_router/go_router.dart';
 
 class ManagecustomersView extends StatefulWidget {
 
@@ -21,6 +23,37 @@ class _ManagecustomersViewState extends State<ManagecustomersView> {
   late TextEditingController _berNumberController;
   late TextEditingController _mobileNumberController;
   late TextEditingController _landNumberController;
+
+
+  // Function to update customer details
+  Future<void> _updateCustomer() async {
+    print(" update function is call");
+    final updatedCustomer = manageCustomer(
+      id: widget.customer.id,
+      shopName: _shopNameController.text,
+      ownerName: _ownerNameController.text,
+      address: _addressController.text,
+      berNumber: _berNumberController.text,
+      mobileNumber: _mobileNumberController.text,
+      landNumber: _landNumberController.text,
+    );
+
+    // Call the updateCustomer function from the service
+    bool success = await UpdateCustomerService.updateCustomer(widget.customer.id as String, updatedCustomer);
+
+    // Show a success or failure message
+    if (success) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Customer updated successfully')),
+      );
+      GoRouter.of(context).pushNamed('customers');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update customer')),
+      );
+      GoRouter.of(context).pushNamed('customers');
+    }
+  }
 
   @override
   void initState() {
@@ -44,27 +77,7 @@ class _ManagecustomersViewState extends State<ManagecustomersView> {
     super.dispose();
   }
 
-//  Future<void> _updateCustomer() async {
-//     try {
-//       final updatedCustomer = manageCustomer(
-//         id: widget.customer.id,
-//         shopName: _shopNameController.text,
-//         ownerName: _ownerNameController.text,
-//         address: _addressController.text,
-//         berNumber: _berNumberController.text,
-//         mobileNumber: _mobileNumberController.text,
-//         landNumber: _landNumberController.text,
-//       );
-//       await CustomerService.updateCustomer(widget.customer.id!, updateCustomer);
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(content: Text('Customer updated successfully')),
-//       );
-//     } catch (e) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(content: Text('Error: ${e.toString()}')),
-//       );
-//     }
-//   }
+
 
   
 
@@ -133,9 +146,7 @@ class _ManagecustomersViewState extends State<ManagecustomersView> {
                   minWidth: double.infinity,
                   color: Colors.green,
                   height: 55,
-                  onPressed: () {
-                    print(widget.customer.id);
-                  },
+                  onPressed:_updateCustomer,
                   child: Text("Update Customer", style: TextStyle(fontSize: 26)),
                 ),
               ],

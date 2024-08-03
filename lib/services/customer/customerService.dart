@@ -84,4 +84,6 @@ Future<void> updateCustomer(String id, manageCustomer customer) async {
       throw Exception('Failed to delete customer');
     }
   }
+
+
 }
