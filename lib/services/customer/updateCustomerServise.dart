@@ -1,16 +1,24 @@
 import 'dart:convert';
+import 'package:cjowner/config/config.dart';
 import 'package:cjowner/models/manageCustomer.dart';
+import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:cjowner/models/customer.dart';
 
 class UpdateCustomerService {
   // Define the base URL for the API endpoint
-  static const String _baseUrl = 'http://54.87.237.56/api/customer';
+  static const String _baseUrl = '${Config.baseurl}/customer';
 
   // Function to update customer details
-  static Future<bool> updateCustomer(String customerId, manageCustomer customer) async {
+  static Future<bool> updateCustomer(
+    String customerId, manageCustomer customer) async {
+    final String? token = await AuthService.getToken();
+    final headers = {
+      'Content-Type': 'application/json',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
     final url = '$_baseUrl/updateCustomer/$customerId';
-    
+
     // Prepare the request body
     final body = jsonEncode({
       "shopName": customer.shopName,
@@ -25,7 +33,7 @@ class UpdateCustomerService {
       // Make the POST request
       final response = await http.put(
         Uri.parse(url),
-        headers: {'Content-Type': 'application/json'},
+        headers: headers,
         body: body,
       );
 

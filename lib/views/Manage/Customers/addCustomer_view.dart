@@ -102,6 +102,7 @@ class _AddcustomerViewState extends State<AddcustomerView> {
                 ),
                 SizedBox(height: 20),
                 TextField(
+                  keyboardType: TextInputType.number,
                   controller: _mobileNumberController,
                   decoration: InputDecoration(
                     labelText: 'Mobile Phone Number',
@@ -110,6 +111,7 @@ class _AddcustomerViewState extends State<AddcustomerView> {
                 ),
                 SizedBox(height: 20),
                 TextField(
+                  keyboardType: TextInputType.number,
                   controller: _landNumberController,
                   decoration: InputDecoration(
                     labelText: 'Land Phone Number',
