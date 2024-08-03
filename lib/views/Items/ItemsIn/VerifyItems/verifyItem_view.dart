@@ -2,7 +2,6 @@ import 'package:cjowner/services/items/StockService.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class VerifyitemView extends StatefulWidget {
   final List<Map<String, dynamic>> items;
   final String stockId;
@@ -34,7 +33,6 @@ class _VerifyitemViewState extends State<VerifyitemView> {
       setState(() {
         itemsUpdates.add(updatedItem);
       });
-      print(updatedItem);
 
       // Remove the verified item from the list
       widget.items.removeWhere((i) => i['_id'] == item['_id']);
@@ -44,11 +42,25 @@ class _VerifyitemViewState extends State<VerifyitemView> {
     }
   }
 
-  // Handle correct verification
+  // Handle correct verification by adding a zero entry
   void handleVerifyCorrect(Map<String, dynamic> item) {
+    // Create a zero-value entry with the same item_name
+    Map<String, dynamic> zeroValueEntry = {
+      'item_name': item['item_name'],
+      'qty': 0.0,
+      'rate': 0.0,
+      'price': 0.0,
+    };
+
+    // Add the zero-value entry to itemsUpdates list
     setState(() {
+      itemsUpdates.add(zeroValueEntry);
+
+      // Remove the verified item from the list
       widget.items.removeWhere((i) => i['_id'] == item['_id']);
+      print(itemsUpdates);
     });
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Item verified as correct!')),
     );
@@ -58,10 +70,10 @@ class _VerifyitemViewState extends State<VerifyitemView> {
   void handleCompleteVerification() async {
     print(widget.stockId);
     print(itemsUpdates);
-    bool success = await StockService.updateVerifyItems(widget.stockId, itemsUpdates);
+    bool success =
+        await StockService.updateVerifyItems(widget.stockId, itemsUpdates);
 
     if (success) {
-      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('All items have been verified and updated!')),
       );
@@ -69,7 +81,6 @@ class _VerifyitemViewState extends State<VerifyitemView> {
 
       // Optionally navigate to another screen or perform additional actions
     } else {
-      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to update items. Please try again!')),
       );
@@ -91,6 +102,33 @@ class _VerifyitemViewState extends State<VerifyitemView> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            if (widget.items.isEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: ElevatedButton(
+                  onPressed: handleCompleteVerification,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Completed Verify',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text("Completed to all verify items"),
+                       SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              ),
             Expanded(
               child: ListView.builder(
                 itemCount: widget.items.length,
@@ -184,25 +222,7 @@ class _VerifyitemViewState extends State<VerifyitemView> {
                 },
               ),
             ),
-            if (widget.items.isEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: ElevatedButton(
-                  onPressed: handleCompleteVerification,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
-                  ),
-                  child: Text(
-                    'Completed Verify',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+            
           ],
         ),
       ),
@@ -230,8 +250,10 @@ class _VerifyFailedDialogState extends State<VerifyFailedDialog> {
     super.initState();
     itemNameController = TextEditingController(text: widget.item['item_name']);
     qtyController = TextEditingController(text: widget.item['qty'].toString());
-    rateController = TextEditingController(text: widget.item['rate'].toString());
-    priceController = TextEditingController(text: widget.item['price'].toString());
+    rateController =
+        TextEditingController(text: widget.item['rate'].toString());
+    priceController =
+        TextEditingController(text: widget.item['price'].toString());
   }
 
   @override

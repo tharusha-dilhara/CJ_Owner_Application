@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               SizedBox(height: 10),
               CustomListTile(
-                leadingIcon: Icons.verified,
+                leadingIcon: Icons.people,
                 title: 'Customers',
                 subtitle: 'Items in description',
                 onTap: () {
@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               SizedBox(height: 10),
               CustomListTile(
-                leadingIcon: Icons.verified,
+                leadingIcon: Icons.people,
                 title: 'Sales Reps',
                 subtitle: 'Items in description',
                 onTap: () {
@@ -80,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               SizedBox(height: 10),
               CustomListTile(
-                leadingIcon: Icons.verified,
+                leadingIcon: Icons.account_balance,
                 title: 'branches',
                 subtitle: 'Items in description',
                 onTap: () {
