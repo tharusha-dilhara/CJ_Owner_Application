@@ -19,9 +19,9 @@ class _EditItemModalState extends State<EditItemModal> {
 
   late TextEditingController _discountController;
   late TextEditingController _priceController;
-  late TextEditingController _marginController;
 
   bool _isUpdating = false;
+  double? _calculatedMargin;
 
   @override
   void initState() {
@@ -30,15 +30,25 @@ class _EditItemModalState extends State<EditItemModal> {
         TextEditingController(text: widget.item.discount?.toString() ?? '');
     _priceController =
         TextEditingController(text: widget.item.price?.toString() ?? '');
-    _marginController = TextEditingController(text: widget.item.margin ?? '');
   }
 
   @override
   void dispose() {
     _discountController.dispose();
     _priceController.dispose();
-    _marginController.dispose();
     super.dispose();
+  }
+
+  double _calculateMargin(double price, double discount) {
+    return ((price - discount) / price) * 100;
+  }
+
+  void _updateMargin() {
+    final double discount = double.tryParse(_discountController.text) ?? 0;
+    final double price = double.tryParse(_priceController.text) ?? 0;
+    setState(() {
+      _calculatedMargin = _calculateMargin(price, discount);
+    });
   }
 
   Future<void> _updateItem() async {
@@ -47,11 +57,16 @@ class _EditItemModalState extends State<EditItemModal> {
         _isUpdating = true;
       });
 
+      final double discount = double.tryParse(_discountController.text) ?? 0;
+      final double price = double.tryParse(_priceController.text) ?? 0;
+
+      final double margin = _calculateMargin(price, discount);
+
       final success = await _updateService.updatePricingItem(
         itemName: widget.item.itemName,
         discount: _discountController.text,
         price: _priceController.text,
-        margin: _marginController.text,
+        margin: margin.toStringAsFixed(2), // Rounded to 2 decimal places
       );
 
       setState(() {
@@ -73,6 +88,9 @@ class _EditItemModalState extends State<EditItemModal> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate margin on price or discount change
+    _updateMargin();
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -117,6 +135,7 @@ class _EditItemModalState extends State<EditItemModal> {
                       }
                       return null;
                     },
+                    onChanged: (_) => _updateMargin(), // Update margin on change
                   ),
                   SizedBox(height: 15),
                   TextFormField(
@@ -136,21 +155,19 @@ class _EditItemModalState extends State<EditItemModal> {
                       }
                       return null;
                     },
+                    onChanged: (_) => _updateMargin(), // Update margin on change
                   ),
                   SizedBox(height: 15),
                   TextFormField(
-                    controller: _marginController,
                     decoration: InputDecoration(
                       labelText: 'Margin',
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.bar_chart),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a margin';
-                      }
-                      return null;
-                    },
+                    initialValue: _calculatedMargin != null
+                        ? _calculatedMargin!.toStringAsFixed(2)
+                        : '',
+                    enabled: false, // Make it read-only
                   ),
                   SizedBox(height: 25),
                   Row(
