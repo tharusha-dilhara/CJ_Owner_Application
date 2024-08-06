@@ -3,7 +3,7 @@ import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:http/http.dart' as http;
 
 class UpdatePricingItemService {
-  static const String _baseUrl = 'http://54.87.237.56/api/stock/updatePricingItemByName';
+  static const String _baseUrl = 'http://44.222.204.165/api/stock/updatePricingItemByName';
 
   Future<bool> updatePricingItem({
     required String itemName,

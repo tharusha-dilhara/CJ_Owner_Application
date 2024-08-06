@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cjowner/config/config.dart';
 import 'package:cjowner/models/AddStockRequest.dart';
 import 'package:cjowner/models/StockInfo.dart';
+import 'package:cjowner/models/viewstock_model.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +11,7 @@ class StockService {
 
   Future<void> addStock(AddStockRequest request) async {
     final String? token = await AuthService.getToken();
+    print(request);
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -39,7 +41,7 @@ class StockService {
 
     // Make the HTTP GET request
     final response = await http.get(
-      Uri.parse('http://54.87.237.56/api/stock/verifyItems'),
+      Uri.parse('http://44.222.204.165/api/stock/verifyItems'),
       headers: headers,
     );
 
@@ -57,7 +59,7 @@ class StockService {
 
 
   static Future<bool> updateVerifyItems(String id, List<Map<String, dynamic>> itemsUpdates) async {
-    final url = 'http://54.87.237.56/api/stock/updateVerifyItems';
+    final url = 'http://44.222.204.165/api/stock/updateVerifyItems';
     final String? token = await AuthService.getToken();
 
     // print("-----------------------------------------------------");
@@ -135,6 +137,30 @@ class StockService {
       throw Exception('Failed to register item: $e');
     }
   }
+
+
+  Future<List<ViewStock>> getAllStockItems() async {
+  final String? token = await AuthService.getToken();
+
+  final response = await http.get(
+    Uri.parse('http://44.222.204.165/api/stock/getAllStockItems'),
+    headers: token != null
+        ? {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          }
+        : {
+            'Content-Type': 'application/json',
+          },
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> data = json.decode(response.body);
+    return data.map((item) => ViewStock.fromJson(item)).toList();
+  } else {
+    throw Exception('Failed to load items');
+  }
+}
 
 
 

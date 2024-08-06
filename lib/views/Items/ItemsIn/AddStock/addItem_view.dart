@@ -1,7 +1,9 @@
+import 'package:cjowner/components/ItemNameDropdown.dart';
+import 'package:flutter/material.dart';
 import 'package:cjowner/models/AddStockRequest.dart';
 import 'package:cjowner/models/StockItem.dart';
 import 'package:cjowner/services/items/StockService.dart';
-import 'package:flutter/material.dart';
+
 
 class AdditemView extends StatefulWidget {
   const AdditemView({super.key});
@@ -21,7 +23,7 @@ class _AdditemViewState extends State<AdditemView> {
 
   void _addItem() {
     final itemName = _itemNameController.text;
-    final qty = int.tryParse(_qtyController.text) ?? 0;
+    final qty = double.tryParse(_qtyController.text) ?? 0;
     final rate = double.tryParse(_rateController.text) ?? 0.0;
 
     if (itemName.isEmpty || qty <= 0 || rate <= 0) {
@@ -54,6 +56,10 @@ class _AdditemViewState extends State<AdditemView> {
       verification: 'pending',
       items: _items,
     );
+
+    print(request);
+
+
 
     _stockService.addStock(request).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -88,13 +94,7 @@ class _AdditemViewState extends State<AdditemView> {
           padding: EdgeInsets.all(28.0),
           child: Column(
             children: [
-              TextField(
-                controller: _itemNameController,
-                decoration: InputDecoration(
-                  labelText: 'Item Name',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+              ItemNameDropdown(controller: _itemNameController),
               SizedBox(height: 20),
               TextField(
                 controller: _qtyController,
@@ -155,7 +155,7 @@ class _AdditemViewState extends State<AdditemView> {
                 ),
                 child: Text(
                   _isCompleting ? "Completing..." : "Complete",
-                  style: TextStyle(fontSize: 26,color: Colors.white),
+                  style: TextStyle(fontSize: 26, color: Colors.white),
                 ),
               )
             ],

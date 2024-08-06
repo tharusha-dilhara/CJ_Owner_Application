@@ -1,3 +1,3 @@
 class Config{
-  static const baseurl="http://54.87.237.56/api";
+  static const baseurl="http://44.222.204.165/api";
 }

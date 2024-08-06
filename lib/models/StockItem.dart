@@ -1,6 +1,6 @@
 class StockItem {
   final String itemName;
-  final int qty;
+  final double qty;
   final double rate;
 
 
@@ -10,6 +10,14 @@ class StockItem {
     required this.rate,
 
   });
+
+  factory StockItem.fromJson(Map<String, dynamic> json) {
+    return StockItem(
+      itemName: json['itemName'] as String,
+      qty: (json['qty'] as num).toDouble(),
+      rate: (json['rate'] as num).toDouble(),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     'item_name': itemName,

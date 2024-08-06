@@ -4,7 +4,7 @@ import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:http/http.dart' as http;
 
 class StockPricingService {
-  final String baseUrl = 'http://54.87.237.56/api/stock';
+  final String baseUrl = 'http://44.222.204.165/api/stock';
 
   // Method to fetch all stock items
   Future<List<StockItemmodel>> fetchStockItems() async {
@@ -39,7 +39,7 @@ class StockPricingService {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse("http://54.87.237.56/api/stock/updatePricingItemByName"),
+        Uri.parse("http://44.222.204.165/api/stock/updatePricingItemByName"),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
           'itemName': itemName,

@@ -2,8 +2,8 @@
 
 class AverageQuantity {
   final int? currentQty;
-  final int? averageQty;
-  final int? difference;
+  final double? averageQty;
+  final double? difference;
 
   AverageQuantity({
     required this.currentQty,
@@ -14,8 +14,8 @@ class AverageQuantity {
   factory AverageQuantity.fromJson(Map<String, dynamic> json) {
     return AverageQuantity(
       currentQty: json['currentQty'],
-      averageQty: json['averageQty'],
-      difference: json['difference'],
+      averageQty: (json['averageQty'] as num).toDouble(),
+      difference: (json['difference'] as num).toDouble()
     );
   }
 }

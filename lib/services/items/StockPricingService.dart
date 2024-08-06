@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class UpdatePricingItemService {
-  final String _updateUrl = "http://54.87.237.56/api/stock/updatePricingItemByName";
+  final String _updateUrl = "http://44.222.204.165/api/stock/updatePricingItemByName";
 
   Future<bool> updatePricingItem({
     required String itemName,
