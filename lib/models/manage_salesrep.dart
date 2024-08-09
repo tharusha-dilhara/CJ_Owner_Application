@@ -1,5 +1,5 @@
-// lib/models/sales_rep_model.dart
-class SalesRepModel {
+class ManageSalesRepModel {
+  final String id; // Add this field
   final String name;
   final String nic;
   final String address;
@@ -11,7 +11,8 @@ class SalesRepModel {
   final String customDate;
   final String customTime;
 
-  SalesRepModel({
+  ManageSalesRepModel({
+    required this.id, // Include id in the constructor
     required this.name,
     required this.nic,
     required this.address,
@@ -20,12 +21,13 @@ class SalesRepModel {
     required this.branchname,
     required this.email,
     required this.password,
-    this.customDate = '', // Optional with default value
-    this.customTime = '', // Optional with default value
+    this.customDate = '',
+    this.customTime = '',
   });
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id, // Include id in the JSON representation
       'name': name,
       'nic': nic,
       'address': address,
@@ -39,8 +41,9 @@ class SalesRepModel {
     };
   }
 
-  factory SalesRepModel.fromJson(Map<String, dynamic> json) {
-    return SalesRepModel(
+  factory ManageSalesRepModel.fromJson(Map<String, dynamic> json) {
+    return ManageSalesRepModel(
+      id: json['_id'], // Map the id field
       name: json['name'],
       nic: json['nic'],
       address: json['address'],

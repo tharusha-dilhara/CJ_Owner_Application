@@ -1,20 +1,55 @@
+import 'package:cjowner/models/salesRep.dart';
 import 'package:flutter/material.dart';
 
 class ManagesalesrepsView extends StatefulWidget {
-  const ManagesalesrepsView({super.key});
+  final SalesRepModel salesRep;  // Add this line to receive the sales rep data
+
+  const ManagesalesrepsView({super.key, required this.salesRep});
 
   @override
   State<ManagesalesrepsView> createState() => _ManagesalesrepsViewState();
 }
 
 class _ManagesalesrepsViewState extends State<ManagesalesrepsView> {
+  late TextEditingController nameController;
+  late TextEditingController nicController;
+  late TextEditingController addressController;
+  late TextEditingController dobController;
+  late TextEditingController mobileNumberController;
+  late TextEditingController emailController;
+  late TextEditingController branchNameController;  // New branch name controller
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController(text: widget.salesRep.name);
+    nicController = TextEditingController(text: widget.salesRep.nic);
+    addressController = TextEditingController(text: widget.salesRep.address);
+    dobController = TextEditingController(text: widget.salesRep.dob);
+    mobileNumberController = TextEditingController(text: widget.salesRep.mobileNumber);
+    emailController = TextEditingController(text: widget.salesRep.email);
+    branchNameController = TextEditingController(text: widget.salesRep.branchname);  // Initialize branch name controller
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    nicController.dispose();
+    addressController.dispose();
+    dobController.dispose();
+    mobileNumberController.dispose();
+    emailController.dispose();
+    branchNameController.dispose();  // Dispose branch name controller
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "Manage salesreps",
+          "Manage Sales Reps",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -25,60 +60,85 @@ class _ManagesalesrepsViewState extends State<ManagesalesrepsView> {
             child: Column(
               children: [
                 TextField(
-                  decoration: InputDecoration(
+                  controller: nameController,
+                  decoration: const InputDecoration(
                     labelText: 'Name',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: nicController,
+                  decoration: const InputDecoration(
                     labelText: 'NIC',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: addressController,
+                  decoration: const InputDecoration(
                     labelText: 'Address',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: dobController,
+                  decoration: const InputDecoration(
                     labelText: 'DOB',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: mobileNumberController,
+                  decoration: const InputDecoration(
                     labelText: 'Mobile Number',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: emailController,
+                  decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Password',
+                  controller: branchNameController,  // Branch name field
+                  decoration: const InputDecoration(
+                    labelText: 'Branch Name',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 MaterialButton(
                   minWidth: double.infinity,
                   color: Colors.green,
                   height: 55,
-                  onPressed: () {},
-                  child: Text("Update Sales Rep", style: TextStyle(fontSize: 26)),
+                  onPressed: () {
+                    // Add functionality to update the sales rep here
+                  },
+                  child: const Text(
+                    "Update Sales Rep",
+                    style: TextStyle(fontSize: 26),
+                  ),
+                ),
+                 const SizedBox(height: 15),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  color: Colors.green,
+                  height: 55,
+                  onPressed: () {
+                    // Add functionality to update the sales rep here
+                  },
+                  child: const Text(
+                    "Delete Sales Rep",
+                    style: TextStyle(fontSize: 26),
+                  ),
                 ),
               ],
             ),

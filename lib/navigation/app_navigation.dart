@@ -1,6 +1,7 @@
 import 'package:cjowner/models/branch.dart';
 import 'package:cjowner/models/customer.dart';
 import 'package:cjowner/models/manageCustomer.dart';
+import 'package:cjowner/models/salesRep.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:cjowner/views/Auth/login_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/AddStock/addCartItems_view.dart';
@@ -415,9 +416,10 @@ class AppNavigation {
                             path: "manageSalesReps",
                             name: "manageSalesReps",
                             pageBuilder: (context, state) {
+                              final SalesRepModel rep =state.extra as SalesRepModel;
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
-                                child: const ManagesalesrepsView(),
+                                child: ManagesalesrepsView(salesRep: rep), 
                                 transitionsBuilder: (
                                   context,
                                   animation,
@@ -470,14 +472,15 @@ class AppNavigation {
                             path: "manageBranch",
                             name: "manageBranch",
                             pageBuilder: (context, state) {
-                              final Map<String, dynamic> extra =state.extra as Map<String, dynamic>;
-                              final String branchId =extra["branchId"];
-                              final String branchName =extra["branchName"];                            
+                              final Map<String, dynamic> extra =
+                                  state.extra as Map<String, dynamic>;
+                              final String branchId = extra["branchId"];
+                              final String branchName = extra["branchName"];
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
                                 child: ManagebranchView(
                                   branchId: branchId,
-                                  branchName : branchName,
+                                  branchName: branchName,
                                 ),
                                 transitionsBuilder: (
                                   context,
@@ -530,11 +533,12 @@ class AppNavigation {
                           GoRoute(
                             path: "manageCustomers",
                             name: "manageCustomers",
-                            pageBuilder: (context, state) {  
-                              final manageCustomer customer = state.extra as manageCustomer;                           
+                            pageBuilder: (context, state) {
+                              final manageCustomer customer =
+                                  state.extra as manageCustomer;
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
-                                child:  ManagecustomersView(customer: customer),
+                                child: ManagecustomersView(customer: customer),
                                 transitionsBuilder: (
                                   context,
                                   animation,
