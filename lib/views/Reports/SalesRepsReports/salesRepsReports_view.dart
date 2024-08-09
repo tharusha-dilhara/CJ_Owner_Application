@@ -49,7 +49,7 @@ class _SalesrepsreportsViewState extends State<SalesrepsreportsView> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      'Total Sales: \$${salesRep.totalSales}',
+                      'Total Sales: Rs ${salesRep.totalSales}',
                       style: TextStyle(color: Colors.grey[600]),
                     ),
                     onTap: () => _showSalesRepDetails(context, salesRep),
@@ -83,8 +83,8 @@ void _showSalesRepDetails(BuildContext context, ReportSalesRep salesRep) {
           ),
           const SizedBox(height: 16),
           _buildDetailRow('Name:', salesRep.salesRepName),
-          _buildDetailRow('Total Sales:', '\$${salesRep.totalSales}'),
-          _buildDetailRow('Total Margin:', '\$${salesRep.totalMargin}'),
+          _buildDetailRow('Total Sales:', 'RS ${salesRep.totalSales}'),
+          _buildDetailRow('Total Margin:', 'Rs ${salesRep.totalMargin}'),
           _buildDetailRow('Number of Invoices:', '${salesRep.numberOfInvoices}'),
           const SizedBox(height: 24),
           Text(
