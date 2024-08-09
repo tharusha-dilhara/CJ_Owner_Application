@@ -103,7 +103,7 @@ class BranchService {
       'Content-Type': 'application/json',
       if (token != null) 'Authorization': 'Bearer $token',
     };
-    final url = Uri.parse('$baseUrl/getAllBranches');
+    final url = Uri.parse('$baseUrl/getAllBranchesB');
     final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {

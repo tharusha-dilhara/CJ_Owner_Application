@@ -1,5 +1,6 @@
 // lib/services/sales_rep_service.dart
 import 'dart:convert';
+import 'package:cjowner/models/manage_salesrep.dart';
 import 'package:cjowner/models/salesRep.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:http/http.dart' as http;
@@ -27,7 +28,7 @@ class SalesRepService {
     }
   }
 
-  Future<List<SalesRepModel>> getAllSalesReps() async {
+  Future<List<ManageSalesRepModel>> getAllSalesReps() async {
     final String? token = await AuthService.getToken();
     final headers = {
       'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ class SalesRepService {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
-      return data.map((json) => SalesRepModel.fromJson(json)).toList();
+      return data.map((json) => ManageSalesRepModel.fromJson(json)).toList();
     } else {
       print('Failed to fetch sales reps: ${response.body}');
       return [];

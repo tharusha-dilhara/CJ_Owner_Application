@@ -1,3 +1,4 @@
+import 'package:cjowner/models/manage_salesrep.dart';
 import 'package:cjowner/services/salesrep/salesRepService.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +13,7 @@ class SalesrepsView extends StatefulWidget {
 
 class _SalesrepsViewState extends State<SalesrepsView> {
   final SalesRepService _salesRepService = SalesRepService();
-  late Future<List<SalesRepModel>> _salesRepsFuture;
+  late Future<List<ManageSalesRepModel>> _salesRepsFuture;
 
   @override
   void initState() {
@@ -49,7 +50,7 @@ class _SalesrepsViewState extends State<SalesrepsView> {
               ),
               const SizedBox(height: 20),
               Expanded(
-                child: FutureBuilder<List<SalesRepModel>>(
+                child: FutureBuilder<List<ManageSalesRepModel>>(
                   future: _salesRepsFuture,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {

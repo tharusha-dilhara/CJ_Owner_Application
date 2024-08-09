@@ -1,6 +1,7 @@
 import 'package:cjowner/models/branch.dart';
 import 'package:cjowner/models/customer.dart';
 import 'package:cjowner/models/manageCustomer.dart';
+import 'package:cjowner/models/manage_salesrep.dart';
 import 'package:cjowner/models/salesRep.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:cjowner/views/Auth/login_view.dart';
@@ -416,7 +417,7 @@ class AppNavigation {
                             path: "manageSalesReps",
                             name: "manageSalesReps",
                             pageBuilder: (context, state) {
-                              final SalesRepModel rep =state.extra as SalesRepModel;
+                              final ManageSalesRepModel rep =state.extra as ManageSalesRepModel;
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
                                 child: ManagesalesrepsView(salesRep: rep), 
