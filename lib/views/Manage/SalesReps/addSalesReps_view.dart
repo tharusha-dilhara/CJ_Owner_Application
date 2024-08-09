@@ -17,6 +17,7 @@ class AddSalesRepsViewState extends State<AddsalesrepsView> {
   final _addressController = TextEditingController();
   final _dobController = TextEditingController();
   final _mobileNumberController = TextEditingController();
+  final _branchnameController = TextEditingController(); // New Controller
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -30,6 +31,7 @@ class AddSalesRepsViewState extends State<AddsalesrepsView> {
         address: _addressController.text,
         dob: _dobController.text,
         mobileNumber: _mobileNumberController.text,
+        branchname: _branchnameController.text, // Include branchname
         email: _emailController.text,
         password: _passwordController.text,
       );
@@ -62,38 +64,51 @@ class AddSalesRepsViewState extends State<AddsalesrepsView> {
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(labelText: 'Name'),
-                validator: (value) => value!.isEmpty ? 'Please enter name' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter name' : null,
               ),
               TextFormField(
                 controller: _nicController,
                 decoration: InputDecoration(labelText: 'NIC'),
-                validator: (value) => value!.isEmpty ? 'Please enter NIC' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter NIC' : null,
               ),
               TextFormField(
                 controller: _addressController,
                 decoration: InputDecoration(labelText: 'Address'),
-                validator: (value) => value!.isEmpty ? 'Please enter address' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter address' : null,
               ),
               TextFormField(
                 controller: _dobController,
                 decoration: InputDecoration(labelText: 'Date of Birth'),
-                validator: (value) => value!.isEmpty ? 'Please enter date of birth' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter date of birth' : null,
               ),
               TextFormField(
                 controller: _mobileNumberController,
                 decoration: InputDecoration(labelText: 'Mobile Number'),
-                validator: (value) => value!.isEmpty ? 'Please enter mobile number' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter mobile number' : null,
+              ),
+              TextFormField(
+                controller: _branchnameController, // New TextFormField
+                decoration: InputDecoration(labelText: 'Branch Name'),
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter branch name' : null,
               ),
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'Email'),
-                validator: (value) => value!.isEmpty ? 'Please enter email' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter email' : null,
               ),
               TextFormField(
                 controller: _passwordController,
                 decoration: InputDecoration(labelText: 'Password'),
                 obscureText: true,
-                validator: (value) => value!.isEmpty ? 'Please enter password' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter password' : null,
               ),
               SizedBox(height: 20),
               ElevatedButton(
