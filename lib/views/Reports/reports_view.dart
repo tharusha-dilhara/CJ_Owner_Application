@@ -18,7 +18,7 @@ class ReportsView extends StatelessWidget {
             CustomListTile(
               leadingIcon: Icons.access_time,
               title: 'Daily Reports',
-              subtitle: 'Daily Reports',
+              subtitle: 'View daily reports',
               onTap: () {
                 GoRouter.of(context).pushNamed('dailyReports');
               },
@@ -27,7 +27,7 @@ class ReportsView extends StatelessWidget {
             CustomListTile(
               leadingIcon: Icons.calendar_month,
               title: 'Monthly Reports',
-              subtitle: 'Monthly Reports',
+              subtitle: 'View monthly reports',
               onTap: () {
                 GoRouter.of(context).pushNamed('monthlyReports');
               },
@@ -36,7 +36,7 @@ class ReportsView extends StatelessWidget {
             CustomListTile(
               leadingIcon: Icons.analytics,
               title: 'Sales Reps Reports',
-              subtitle: 'Sales Reps Reports',
+              subtitle: 'View sales reps reports',
               onTap: () {
                 GoRouter.of(context).pushNamed('salesRepsReports');
               },

@@ -22,7 +22,7 @@ class ManageView extends StatelessWidget {
             CustomListTile(
               leadingIcon: Icons.people,
               title: 'Sales Reps',
-              subtitle: 'Sales Reps description',
+              subtitle: 'Manage sales reps',
               onTap: () {
                 GoRouter.of(context).pushNamed('salesReps');
               },
@@ -30,8 +30,8 @@ class ManageView extends StatelessWidget {
             const SizedBox(height: 18),
             CustomListTile(
               leadingIcon: Icons.account_balance,
-              title: 'Branch',
-              subtitle: 'Branch in description',
+              title: 'Branches',
+              subtitle: 'Manage Branches',
               onTap: () {
                 GoRouter.of(context).pushNamed('branches');
               },
@@ -39,8 +39,8 @@ class ManageView extends StatelessWidget {
             const SizedBox(height: 18),
             CustomListTile(
               leadingIcon: Icons.people,
-              title: 'customers',
-              subtitle: 'customers description',
+              title: 'Customers',
+              subtitle: 'Manage customers',
               onTap: () {
                 GoRouter.of(context).pushNamed('customers');
               },

@@ -115,15 +115,15 @@ class _VerifyitemViewState extends State<VerifyitemView> {
                   child: Column(
                     children: [
                       Text(
-                        'Completed Verify',
+                        'Complete Verify',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text("Completed to all verify items"),
+                      SizedBox(height: 2),
+                      Text("Complete to all verify items",style: TextStyle(color: Colors.white),),
                        SizedBox(height: 10),
                     ],
                   ),
