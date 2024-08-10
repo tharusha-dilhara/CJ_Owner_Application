@@ -49,13 +49,15 @@ class _HomeViewState extends State<HomeView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              Text(
-                "Hello, Mr. Weerakoon",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueGrey[800],
-                  fontFamily: 'Roboto',
+              Center(
+                child: Text(
+                  "Hello, Mr. Weerakoon",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey[800],
+                    fontFamily: 'Roboto',
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -79,10 +81,10 @@ class _HomeViewState extends State<HomeView> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildSectionTitle('Overall Sales and Margin'),
+                      _buildSectionTitle('Overall Sales And Margin'),
                       _buildOverallCard(overall),
                       SizedBox(height: 20),
-                      _buildSectionTitle('Branch Sales and Margin'),
+                      _buildSectionTitle('Branch Sales And Margin'),
                       ...branches.map((branch) => _buildBranchCard(branch)).toList(),
                     ],
                   );
@@ -101,7 +103,7 @@ class _HomeViewState extends State<HomeView> {
         CustomListTile(
           leadingIcon: Icons.view_agenda,
           title: 'View Items',
-          subtitle: 'View items description',
+          subtitle: 'View your stock items',
           onTap: () {
             GoRouter.of(context).pushNamed('viewItems');
           },
@@ -110,7 +112,7 @@ class _HomeViewState extends State<HomeView> {
         CustomListTile(
           leadingIcon: Icons.verified,
           title: 'Verify Items',
-          subtitle: 'Items in description',
+          subtitle: 'Verify your items',
           onTap: () {
             GoRouter.of(context).pushNamed('verifyItems');
           },
@@ -119,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
         CustomListTile(
           leadingIcon: Icons.people,
           title: 'Customers',
-          subtitle: 'Items in description',
+          subtitle: 'Manage customers ',
           onTap: () {
             GoRouter.of(context).pushNamed('customers');
           },
@@ -128,7 +130,7 @@ class _HomeViewState extends State<HomeView> {
         CustomListTile(
           leadingIcon: Icons.people,
           title: 'Sales Reps',
-          subtitle: 'Items in description',
+          subtitle: 'Manage Sales Reps',
           onTap: () {
             GoRouter.of(context).pushNamed('salesReps');
           },
@@ -137,7 +139,7 @@ class _HomeViewState extends State<HomeView> {
         CustomListTile(
           leadingIcon: Icons.account_balance,
           title: 'Branches',
-          subtitle: 'Items in description',
+          subtitle: 'Manage branches',
           onTap: () {
             GoRouter.of(context).pushNamed('branches');
           },

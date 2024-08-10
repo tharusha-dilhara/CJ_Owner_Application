@@ -24,7 +24,7 @@ class ItemsinView extends StatelessWidget {
                 CustomListTile(
                   leadingIcon: Icons.add_box,
                   title: 'Add Stock',
-                  subtitle: 'Items in description',
+                  subtitle: 'Add items in your stock',
                   onTap: () {
                     GoRouter.of(context).pushNamed('addStock');
                   },
@@ -33,7 +33,7 @@ class ItemsinView extends StatelessWidget {
                 CustomListTile(
                   leadingIcon: Icons.verified,
                   title: 'Verify Items',
-                  subtitle: 'Items in description',
+                  subtitle: 'Verify your pending items',
                   onTap: () {
                     GoRouter.of(context).pushNamed('verifyItems');
                   },
@@ -42,7 +42,7 @@ class ItemsinView extends StatelessWidget {
                 CustomListTile(
                   leadingIcon: Icons.currency_exchange,
                   title: 'Pricing Items',
-                  subtitle: 'Items in description',
+                  subtitle: 'Pricing your stock items',
                   onTap: () {
                     GoRouter.of(context).pushNamed('pricingItem');
                   },
@@ -51,7 +51,7 @@ class ItemsinView extends StatelessWidget {
                 CustomListTile(
                   leadingIcon: Icons.app_registration_rounded,
                   title: 'Register items',
-                  subtitle: 'Items in description',
+                  subtitle: 'Register new items',
                   onTap: () {
                     GoRouter.of(context).pushNamed('registerItems');
                   },

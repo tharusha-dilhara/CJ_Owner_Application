@@ -24,7 +24,7 @@ class ItemsView extends StatelessWidget {
             CustomListTile(
               leadingIcon: Icons.add_box,
               title: 'Items In',
-              subtitle: 'Items in description',
+              subtitle: 'Stock in process',
               onTap: () {
                 GoRouter.of(context).pushNamed('itemsIn');
               },
@@ -33,7 +33,7 @@ class ItemsView extends StatelessWidget {
             CustomListTile(
               leadingIcon: Icons.book,
               title: 'Pre Orders',
-              subtitle: 'Preorders in description',
+              subtitle: 'Manage preorders',
               onTap: () {
                 GoRouter.of(context).pushNamed('preOrders');
               },
@@ -42,7 +42,7 @@ class ItemsView extends StatelessWidget {
             CustomListTile(
               leadingIcon: Icons.view_agenda,
               title: 'View Items',
-              subtitle: 'View items description',
+              subtitle: 'View stock items',
               onTap: () {
                 GoRouter.of(context).pushNamed('viewItems');
               },
