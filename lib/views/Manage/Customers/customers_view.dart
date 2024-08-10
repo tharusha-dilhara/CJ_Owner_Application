@@ -38,6 +38,13 @@ class _CustomersViewState extends State<CustomersView> {
     }
   }
 
+  Future<void> _refreshCustomers() async {
+    setState(() {
+      _isLoading = true;  // Optionally set loading state while refreshing
+    });
+    await _fetchCustomers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,80 +55,76 @@ class _CustomersViewState extends State<CustomersView> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(28.0),
-          child: Column(
-            children: [
-              MaterialButton(
-                minWidth: double.infinity,
-                color: Colors.green,
-                height: 55,
-                onPressed: () {
-                  GoRouter.of(context).pushNamed('addCustomers');
-                },
-                child:
-                    const Text("Add Customers", style: TextStyle(fontSize: 26)),
-              ),
-              const SizedBox(height: 20),
-              Expanded(
+      body: Padding(
+        padding: const EdgeInsets.all(28.0),
+        child: Column(
+          children: [
+            MaterialButton(
+              minWidth: double.infinity,
+              color: Colors.green,
+              height: 55,
+              onPressed: () {
+                GoRouter.of(context).pushNamed('addCustomers');
+              },
+              child: const Text("Add Customers", style: TextStyle(fontSize: 26)),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _refreshCustomers, // Add the refresh callback
                 child: _isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : _errorMessage.isNotEmpty
                         ? Center(child: Text('Error: $_errorMessage'))
                         : _customers.isEmpty
-                            ? const Center(child: Text('No data available'))
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: ListView.builder(
-                              itemCount: _customers.length,
-                              itemBuilder: (context, index) {
-                                final customer = _customers[index];
-                                return Container(
-                                  margin:const EdgeInsets.symmetric(vertical: 8.0),
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 2,
-                                        blurRadius: 20,
-                                        offset: const Offset(0, 3),
+                            ? const Center(child: Text('No customer data available'))
+                            : ListView.builder(
+                                itemCount: _customers.length,
+                                itemBuilder: (context, index) {
+                                  final customer = _customers[index];
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                                    height: 75,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 20,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ListTile(
+                                      onTap: () {
+                                        GoRouter.of(context).pushNamed(
+                                          'manageCustomers',
+                                          extra: customer,
+                                        );
+                                      },
+                                      title: Text(
+                                        customer.shopName ?? 'No Shop',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                  child: ListTile(
-                                    onTap: () {
-                                      print(customer);
-                                      GoRouter.of(context).pushNamed(
-                                        'manageCustomers',
-                                         extra: customer,
-                                      );
-                                    },
-                                    title: Text(
-                                      customer.shopName ?? 'No Shop',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                      subtitle: Text(
+                                        customer.address ?? 'No Address',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
-                                    subtitle: Text(
-                                      customer.address ?? 'No Address',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                                  );
+                                },
+                              ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

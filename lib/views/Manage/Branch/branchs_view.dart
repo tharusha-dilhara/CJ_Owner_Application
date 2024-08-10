@@ -37,6 +37,13 @@ class _BranchsViewState extends State<BranchsView> {
     }
   }
 
+  Future<void> _refreshBranches() async {
+    setState(() {
+      _isLoading = true; // Optionally set loading state while refreshing
+    });
+    await _fetchBranches();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,57 +69,55 @@ class _BranchsViewState extends State<BranchsView> {
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: _isLoading
-                  ? Center(child: CircularProgressIndicator())
-                  : _errorMessage.isNotEmpty
-                      ? Center(child: Text('Error: $_errorMessage'))
-                      : _branches.isEmpty
+              child: RefreshIndicator(
+                onRefresh: _refreshBranches, // Add the refresh callback
+                child: _isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : _errorMessage.isNotEmpty
+                        ? Center(child: Text('Error: $_errorMessage'))
+                        : _branches.isEmpty
                             ? const Center(child: Text('No data available'))
-                      : Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: ListView.builder(
-                            itemCount: _branches.length,
-                            itemBuilder: (context, index) {
-                              final branch = _branches[index];
-                              return Container(
-                                margin: EdgeInsets.symmetric(vertical: 8.0),
-                                height: 55,
-                                decoration: BoxDecoration(
-                                  color: Colors.white, // Background color
-                                  borderRadius: BorderRadius.circular(12.0), // Rounded corners
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey
-                                          .withOpacity(0.2), // Shadow color
-                                      spreadRadius: 2, // Shadow spread
-                                      blurRadius: 20, // Shadow blur
-                                      offset: Offset(0, 3), // Shadow offset
+                            : ListView.builder(
+                                itemCount: _branches.length,
+                                itemBuilder: (context, index) {
+                                  final branch = _branches[index];
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                                    height: 55,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 20,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: ListTile(
-                                  onTap: () {
-                                    GoRouter.of(context).pushNamed(
-                                      'manageBranch',
-                                      extra: {
-                                        'branchId': branch.branchId,
-                                        'branchName': branch.branchName
+                                    child: ListTile(
+                                      onTap: () {
+                                        GoRouter.of(context).pushNamed(
+                                          'manageBranch',
+                                          extra: {
+                                            'branchId': branch.branchId,
+                                            'branchName': branch.branchName
+                                          },
+                                        );
                                       },
-                                    );
-                                  },
-                                  title: Text(
-                                    branch.branchName,
-                                    style: TextStyle(
-                                      fontWeight:
-                                          FontWeight.bold, // Bold title text
-                                      color: Colors.black, // Title text color
+                                      title: Text(
+                                        branch.branchName,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
+                                  );
+                                },
+                              ),
+              ),
             ),
           ],
         ),

@@ -212,6 +212,7 @@ class _ManagesalesrepsViewState extends State<ManagesalesrepsView> {
                     ),
                     const SizedBox(height: 20),
                     TextField(
+                       keyboardType: TextInputType.number,
                       controller: mobileNumberController,
                       decoration: const InputDecoration(
                         labelText: 'Mobile Number',
