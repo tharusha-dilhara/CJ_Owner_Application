@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 
 class Report {
-  static const String _baseUrl = 'http://44.222.204.165/api/reports';
+  static const String _baseUrl = 'http://13.60.98.76/api/reports';
 
   // Fetch the daily sales report with authentication headers
   Future<DailyReportData> fetchDailySalesReport() async {
@@ -55,7 +55,7 @@ class Report {
           };
 
     final response = await http.get(
-      Uri.parse('http://44.222.204.165/api/reports/getMonthlyReport'),
+      Uri.parse('http://13.60.98.76/api/reports/getMonthlyReport'),
       headers: headers,
     );
 
@@ -72,7 +72,7 @@ class Report {
   final String? token = await AuthService.getToken(); // Fetch the token from AuthService
 
   final response = await http.get(
-    Uri.parse('http://44.222.204.165/api/reports/getSalesDataForSalesReps'),
+    Uri.parse('http://13.60.98.76/api/reports/getSalesDataForSalesReps'),
     headers: {
       'Content-Type': 'application/json',
       if (token != null) 'Authorization': 'Bearer $token',

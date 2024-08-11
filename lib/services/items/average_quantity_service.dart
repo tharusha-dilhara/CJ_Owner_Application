@@ -6,7 +6,7 @@ import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:http/http.dart' as http;
 
 class AverageQuantityService {
-  final String _url = 'http://44.222.204.165/api/stock/average-quantity';
+  final String _url = 'http://13.60.98.76/api/stock/average-quantity';
 
   Future<AverageQuantityResponse?> fetchAverageQuantity() async {
     final String? token = await AuthService.getToken();

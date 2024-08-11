@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:cjowner/models/StockItem.dart';
 
 class StockItemService {
-  final String _baseUrl = 'http://44.222.204.165/api/stock';
+  final String _baseUrl = 'http://13.60.98.76/api/stock';
 
   Future<List<StockItem>> fetchStockItems() async {
     final String? token = await AuthService.getToken();

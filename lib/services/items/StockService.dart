@@ -41,7 +41,7 @@ class StockService {
 
     // Make the HTTP GET request
     final response = await http.get(
-      Uri.parse('http://44.222.204.165/api/stock/verifyItems'),
+      Uri.parse('http://13.60.98.76/api/stock/verifyItems'),
       headers: headers,
     );
 
@@ -59,7 +59,7 @@ class StockService {
 
 
   static Future<bool> updateVerifyItems(String id, List<Map<String, dynamic>> itemsUpdates) async {
-    final url = 'http://44.222.204.165/api/stock/updateVerifyItems';
+    final url = 'http://13.60.98.76/api/stock/updateVerifyItems';
     final String? token = await AuthService.getToken();
 
     // print("-----------------------------------------------------");
@@ -143,7 +143,7 @@ class StockService {
   final String? token = await AuthService.getToken();
 
   final response = await http.get(
-    Uri.parse('http://44.222.204.165/api/stock/getAllStockItems'),
+    Uri.parse('http://13.60.98.76/api/stock/getAllStockItems'),
     headers: token != null
         ? {
             'Content-Type': 'application/json',

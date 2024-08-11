@@ -43,7 +43,7 @@ Future<void> _fetchBranches() async {
     final String? token = await AuthService.getToken();
 
     final response = await http.get(
-      Uri.parse('http://44.222.204.165/api/branch/getAllBranches'),
+      Uri.parse('http://13.60.98.76/api/branch/getAllBranches'),
       headers: token != null ? {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',

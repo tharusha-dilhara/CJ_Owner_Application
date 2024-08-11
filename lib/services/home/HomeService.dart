@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:cjowner/services/auth/auth_service.dart'; // Import AuthService
 
 class HomeService {
-  static const String baseUrl = 'http://44.222.204.165/api/reports/getTotalSalesAndMargin';
+  static const String baseUrl = 'http://13.60.98.76/api/reports/getTotalSalesAndMargin';
 
   static Future<Map<String, dynamic>> fetchTotalSalesAndMargin() async {
     final String? token = await AuthService.getToken();

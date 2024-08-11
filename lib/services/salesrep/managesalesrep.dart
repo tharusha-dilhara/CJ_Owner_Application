@@ -6,7 +6,7 @@ import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:http/http.dart' as http;
 
 class ManageSalesRepService {
-  final String _baseUrl = 'http://44.222.204.165/api/salesrep';
+  final String _baseUrl = 'http://13.60.98.76/api/salesrep';
 
   // Update Sales Rep
   Future<bool> updateSalesRep(ManageSalesRepModel salesRep) async {
