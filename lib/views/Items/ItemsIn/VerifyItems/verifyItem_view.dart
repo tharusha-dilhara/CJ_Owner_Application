@@ -196,7 +196,7 @@ class _VerifyitemViewState extends State<VerifyitemView> {
                                   backgroundColor: Colors.green,
                                 ),
                                 child: Text(
-                                  'Verify Correct',
+                                  'Verify',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -209,7 +209,7 @@ class _VerifyitemViewState extends State<VerifyitemView> {
                                   backgroundColor: Colors.red,
                                 ),
                                 child: Text(
-                                  'Verify Failed',
+                                  'Reject',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
