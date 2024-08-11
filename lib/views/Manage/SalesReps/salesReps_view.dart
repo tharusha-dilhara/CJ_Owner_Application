@@ -2,7 +2,6 @@ import 'package:cjowner/models/manage_salesrep.dart';
 import 'package:cjowner/services/salesrep/salesRepService.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:cjowner/models/salesRep.dart';
 
 class SalesrepsView extends StatefulWidget {
   const SalesrepsView({super.key});
@@ -21,6 +20,12 @@ class _SalesrepsViewState extends State<SalesrepsView> {
     _salesRepsFuture = _salesRepService.getAllSalesReps();
   }
 
+  Future<void> _refreshSalesReps() async {
+    setState(() {
+      _salesRepsFuture = _salesRepService.getAllSalesReps();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,25 +36,26 @@ class _SalesrepsViewState extends State<SalesrepsView> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(28.0),
-          child: Column(
-            children: [
-              MaterialButton(
-                minWidth: double.infinity,
-                color: Colors.green,
-                height: 55,
-                onPressed: () {
-                  GoRouter.of(context).pushNamed('addsalesReps');
-                },
-                child: const Text(
-                  "Add Sales Reps",
-                  style: TextStyle(fontSize: 26),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(28.0),
+        child: Column(
+          children: [
+            MaterialButton(
+              minWidth: double.infinity,
+              color: Colors.green,
+              height: 55,
+              onPressed: () {
+                GoRouter.of(context).pushNamed('addsalesReps');
+              },
+              child: const Text(
+                "Add Sales Reps",
+                style: TextStyle(fontSize: 26),
               ),
-              const SizedBox(height: 20),
-              Expanded(
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _refreshSalesReps, // Add the refresh callback
                 child: FutureBuilder<List<ManageSalesRepModel>>(
                   future: _salesRepsFuture,
                   builder: (context, snapshot) {
@@ -79,17 +85,15 @@ class _SalesrepsViewState extends State<SalesrepsView> {
                               title: Text(
                                 rep.name,
                                 style: const TextStyle(
-                                  fontWeight:
-                                      FontWeight.bold, // Bold title text
-                                  color: Colors.black, // Title text color
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                               subtitle: Text(
                                 rep.mobileNumber,
                                 style: const TextStyle(
-                                  fontWeight:
-                                      FontWeight.w400, // Normal subtitle text
-                                  color: Colors.black, // Subtitle text color
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -100,8 +104,8 @@ class _SalesrepsViewState extends State<SalesrepsView> {
                   },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
