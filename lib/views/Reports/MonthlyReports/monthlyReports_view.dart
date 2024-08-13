@@ -112,7 +112,7 @@ class _MonthlyreportsViewState extends State<MonthlyreportsView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Total Margin: \$${reportData.totalMargin.toStringAsFixed(2)}',
+              'Total Margin: Rs ${reportData.totalMargin.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class _MonthlyreportsViewState extends State<MonthlyreportsView> {
             ),
             const SizedBox(height: 10),
             Text(
-              'Total Sales Amount: \$${reportData.totalSalesAmount.toStringAsFixed(2)}',
+              'Total Sales Amount: Rs ${reportData.totalSalesAmount.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

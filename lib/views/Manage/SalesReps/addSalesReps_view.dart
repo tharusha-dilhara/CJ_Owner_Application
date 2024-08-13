@@ -38,7 +38,6 @@ class AddsalesrepsViewState extends State<AddsalesrepsView> {
     try {
       final String? token = await AuthService.getToken();
 
-<<<<<<< HEAD
     final response = await http.get(
       Uri.parse('http://13.60.98.76/api/branch/getAllBranches'),
       headers: token != null ? {
@@ -56,27 +55,8 @@ class AddsalesrepsViewState extends State<AddsalesrepsView> {
       
     } else {
       throw Exception('Failed to load branches');
-=======
-      final response = await http.get(
-        Uri.parse('http://44.222.204.165/api/branch/getAllBranches'),
-        headers: token != null
-            ? {
-                'Authorization': 'Bearer $token',
-                'Content-Type': 'application/json',
-              }
-            : {},
-      );
->>>>>>> 0932d071517f11879a00142c7d6a7ee7acb34d4c
 
-      if (response.statusCode == 200) {
-        final List<dynamic> branchList = json.decode(response.body);
-        setState(() {
-          _branches = List<String>.from(branchList);
-          _selectedBranch = _branches.isNotEmpty ? _branches[0] : null;
-        });
-      } else {
-        throw Exception('Failed to load branches');
-      }
+    }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to load branches: $e')),

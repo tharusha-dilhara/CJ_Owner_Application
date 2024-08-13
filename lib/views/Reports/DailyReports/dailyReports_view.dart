@@ -114,7 +114,7 @@ class _DailyreportsViewState extends State<DailyreportsView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Total Sales Amount: Rs.${reportData.totalSalesAmount.toStringAsFixed(2)}',
+              'Total Sales Amount: Rs ${reportData.totalSalesAmount.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

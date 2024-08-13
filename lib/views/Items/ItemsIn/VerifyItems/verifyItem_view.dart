@@ -279,6 +279,7 @@ class _VerifyFailedDialogState extends State<VerifyFailedDialog> {
                 labelText: 'Item Name',
                 border: OutlineInputBorder(),
               ),
+              readOnly: true,
             ),
             SizedBox(height: 10),
             TextField(

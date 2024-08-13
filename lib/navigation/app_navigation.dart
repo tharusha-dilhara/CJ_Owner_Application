@@ -3,10 +3,12 @@ import 'package:cjowner/models/customer.dart';
 import 'package:cjowner/models/manageCustomer.dart';
 import 'package:cjowner/models/manage_salesrep.dart';
 import 'package:cjowner/models/salesRep.dart';
+import 'package:cjowner/models/stockitemmodel.dart';
 import 'package:cjowner/services/auth/auth_service.dart';
 import 'package:cjowner/views/Auth/login_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/AddStock/addCartItems_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/AddStock/addItem_view.dart';
+import 'package:cjowner/views/Items/ItemsIn/PricingItems/EditPricingItem_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/PricingItems/pricingItemStart_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/PricingItems/pricingItem_view.dart';
 import 'package:cjowner/views/Items/ItemsIn/Registeritems/registerItems_view.dart';
@@ -33,6 +35,7 @@ import 'package:cjowner/views/Reports/MonthlyReports/monthlyReports_view.dart';
 import 'package:cjowner/views/Reports/SalesRepsReports/SalesRepsReport_view.dart';
 import 'package:cjowner/views/Reports/SalesRepsReports/salesRepsReports_view.dart';
 import 'package:cjowner/views/Reports/reports_view.dart';
+import 'package:cjowner/views/maintenance/maintenance_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cjowner/views/home/home_view.dart';
@@ -60,8 +63,11 @@ class AppNavigation {
     redirect: (context, state) async {
       final String? token = await AuthService.getToken();
       final bool isAuthenticated = token != null;
+      final bool isMaintenanceMode = await AuthService.checkMaintenanceStatus();
 
-      if (isAuthenticated) {
+      if (isMaintenanceMode) {
+        return "/maintenance";
+      } else if (isAuthenticated) {
         return null;
       } else if (!isAuthenticated) {
         return "/login";
@@ -79,7 +85,12 @@ class AppNavigation {
         builder: (BuildContext context, GoRouterState state) =>
             const LoginView(),
       ),
-
+      GoRoute(
+        path: '/maintenance',
+        name: 'maintenance',
+        builder: (BuildContext context, GoRouterState state) =>
+            const MaintenanceView(),
+      ),
       /// MainWrapper
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -288,7 +299,16 @@ class AppNavigation {
                                             opacity: animation, child: child),
                                   );
                                 },
-                              )
+                              ),
+                              GoRoute(
+                                path: 'edit',
+                                name: "editpricingItem",
+                                builder: (context, state) {
+                                  final StockItemmodel item =
+                                      state.extra as StockItemmodel;
+                                  return EditPricingItem(item: item);
+                                },
+                              ),
                             ]),
                         GoRoute(
                           path: "registerItems",
@@ -417,10 +437,11 @@ class AppNavigation {
                             path: "manageSalesReps",
                             name: "manageSalesReps",
                             pageBuilder: (context, state) {
-                              final ManageSalesRepModel rep =state.extra as ManageSalesRepModel;
+                              final ManageSalesRepModel rep =
+                                  state.extra as ManageSalesRepModel;
                               return CustomTransitionPage<void>(
                                 key: state.pageKey,
-                                child: ManagesalesrepsView(salesRep: rep), 
+                                child: ManagesalesrepsView(salesRep: rep),
                                 transitionsBuilder: (
                                   context,
                                   animation,

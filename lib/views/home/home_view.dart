@@ -81,10 +81,10 @@ class _HomeViewState extends State<HomeView> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildSectionTitle('Overall Sales And Margin'),
+                      Center(child: _buildSectionTitle('Overall Sales')),
                       _buildOverallCard(overall),
                       SizedBox(height: 20),
-                      _buildSectionTitle('Branch Sales And Margin'),
+                      Center(child: _buildSectionTitle('Branch Sales')),
                       ...branches.map((branch) => _buildBranchCard(branch)).toList(),
                     ],
                   );
@@ -175,8 +175,6 @@ class _HomeViewState extends State<HomeView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildDetailRow('Total Sales:', overall['totalSales']),
-            _buildDetailRow('Total Margin:', overall['totalMargin']),
-            _buildDetailRow('Average Margin Percentage:', overall['overallAverageMarginPercentage']),
           ],
         ),
       ),
@@ -196,8 +194,6 @@ class _HomeViewState extends State<HomeView> {
           children: [
             _buildDetailRow('Branch:', branch['branchName']),
             _buildDetailRow('Total Sales:', branch['totalSales']),
-            _buildDetailRow('Total Margin:', branch['totalMargin']),
-            _buildDetailRow('Average Margin Percentage:', branch['averageMarginPercentage']),
           ],
         ),
       ),

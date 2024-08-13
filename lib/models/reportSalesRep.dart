@@ -1,9 +1,11 @@
 // lib/models/sales_rep.dart
+import 'dart:ffi';
+
 class ReportSalesRep {
   final String salesRepId;
   final String salesRepName;
-  final int totalSales;
-  final int totalMargin;
+  final double totalSales;
+  final double totalMargin;
   final int numberOfInvoices;
   final SalesRepDetails salesRepDetails;
 
@@ -20,8 +22,8 @@ class ReportSalesRep {
     return ReportSalesRep(
       salesRepId: json['salesRepId'],
       salesRepName: json['salesRepName'],
-      totalSales: json['totalSales'],
-      totalMargin: json['totalMargin'],
+      totalSales: json['totalSales'] * 1.0 ,
+      totalMargin:  json['totalMargin'] * 1.0  ,
       numberOfInvoices: json['numberOfInvoices'],
       salesRepDetails: SalesRepDetails.fromJson(json['salesRepDetails']),
     );

@@ -1,8 +1,7 @@
-import 'package:cjowner/components/edit_item_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:cjowner/models/stockitemmodel.dart';
 import 'package:cjowner/services/items/pricing_item_service.dart';
-
 
 class PricingitemView extends StatefulWidget {
   const PricingitemView({super.key});
@@ -60,19 +59,8 @@ class _PricingitemViewState extends State<PricingitemView> {
     });
   }
 
-  void _openEditModal(StockItemmodel item) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return EditItemModal(
-          item: item,
-          onUpdate: () {
-            // Callback to refresh the items list
-            _loadStockItems();
-          },
-        );
-      },
-    );
+  void _openEditPage(StockItemmodel item) {
+    GoRouter.of(context).pushNamed('editpricingItem',extra: item);
   }
 
   @override
@@ -108,7 +96,7 @@ class _PricingitemViewState extends State<PricingitemView> {
                     itemBuilder: (context, index) {
                       final item = _filteredStockItems[index];
                       return GestureDetector(
-                        onTap: () => _openEditModal(item),
+                        onTap: () => _openEditPage(item),
                         child: Card(
                           margin: EdgeInsets.all(8.0),
                           child: Padding(

@@ -46,6 +46,17 @@ class AuthService {
     await prefs.remove('jwt_token');
   }
 
+
+  static Future<bool> checkMaintenanceStatus() async {
+  final response = await http.get(Uri.parse('http://13.60.98.76/api/status'));
+
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> data = json.decode(response.body);
+    return data['maintenance'] ?? false;
+  } else {
+    throw Exception('Failed to load maintenance status');
+  }
+}
   
 
 
