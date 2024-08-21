@@ -1,7 +1,10 @@
+import 'package:cjowner/services/auth/auth_service.dart';
+import 'package:cjowner/utils/snackbar_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cjowner/models/stockitemmodel.dart';
 import 'package:cjowner/services/items/pricing_item_service.dart';
+import 'package:http/http.dart' as http;
 
 class PricingitemView extends StatefulWidget {
   const PricingitemView({super.key});
@@ -60,7 +63,43 @@ class _PricingitemViewState extends State<PricingitemView> {
   }
 
   void _openEditPage(StockItemmodel item) {
-    GoRouter.of(context).pushNamed('editpricingItem',extra: item);
+    GoRouter.of(context).pushNamed('editpricingItem', extra: item);
+  }
+
+  Future<void> _deleteItem(String id) async {
+    // Retrieve the token
+    final String? token = await AuthService.getToken();
+
+    // Define headers with conditional Authorization
+    final headers = token != null
+        ? {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          }
+        : {
+            'Content-Type': 'application/json',
+          };
+
+    final url = Uri.parse('http://13.60.98.76/api/stock/deleteRegisterItem/$id');
+
+    try {
+      // Send the DELETE request with headers
+      final response = await http.delete(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        // Successfully deleted the item
+        setState(() {
+          _stockItems.removeWhere((item) => item.id == id);
+          _filteredStockItems.removeWhere((item) => item.id == id);
+        });
+      } else {
+        // Handle the error
+        showSnackbar(context, 'faild to delete because item count is greater than 0');
+      }
+    } catch (e) {
+      // Handle network or other errors
+      print('Error deleting item: $e');
+    }
   }
 
   @override
@@ -117,14 +156,30 @@ class _PricingitemViewState extends State<PricingitemView> {
                                 Text('Quantity: ${item.qty}'),
                                 Text('Rate: ${item.rate}'),
                                 Text('Amount of Items: ${double.tryParse(item.amountOfItems)?.toStringAsFixed(2)}'),
-                                if (item.discount != null)
-                                  Text('Discount: ${item.discount}'),
                                 if (item.margin != null)
-                                  Text('Margin: ${item.margin} %'),
+                                  Text('Margin: ${double.tryParse(item.margin!)?.toStringAsFixed(2)}'),
                                 if (item.price != null)
                                   Text('Price: ${item.price}'),
                                 Text('Date: ${item.customDate}'),
                                 Text('Time: ${item.customTime}'),
+                                SizedBox(height: 20,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    if (item.qty < 1)
+                                      ElevatedButton(
+                                      onPressed: () => _deleteItem(item.id!),
+                                      child: Icon(Icons.delete),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () => _openEditPage(item),
+                                      child: Icon(Icons.edit),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

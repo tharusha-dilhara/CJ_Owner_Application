@@ -6,11 +6,11 @@ class ViewStock {
   final String companyName;
   final String companyAddress;
   final int qty;
-  final double rate;
-  final int amountOfItems;
-  final double? discount;
+  final String rate;
+  final String amountOfItems;
+  final String? discount;
   final String? margin;
-  final double? price;
+  final String? price;
   final String customDate;
   final String customTime;
 
@@ -36,11 +36,11 @@ class ViewStock {
       companyName: json['companyName'],
       companyAddress: json['companyAddress'],
       qty: json['qty'],
-      rate: json['rate'].toDouble(),
+      rate: json['rate'],
       amountOfItems: json['amountOfItems'],
-      discount: json['discount']?.toDouble(),
+      discount: json['discount'],
       margin: json['margin'],
-      price: json['price']?.toDouble(),
+      price: json['price'],
       customDate: json['customDate'],
       customTime: json['customTime'],
     );

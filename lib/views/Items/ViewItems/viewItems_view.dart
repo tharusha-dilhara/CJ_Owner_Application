@@ -107,14 +107,12 @@ class _ViewitemsViewState extends State<ViewitemsView> {
                         Text('Company: ${item.companyName}'),
                         Text('Address: ${item.companyAddress}'),
                         Text('Quantity: ${item.qty}'),
-                        Text('Rate: Rs ${item.rate.toStringAsFixed(2)}'),
+                        Text('Rate: Rs ${item.rate}'),
                         Text('Amount: ${item.amountOfItems}'),
-                        if (item.discount != null)
-                          Text('Discount: Rs ${item.discount!.toStringAsFixed(2)}'),
                         if (item.margin != null)
-                          Text('Margin: Rs ${item.margin}'),
+                          Text('Margin: ${double.tryParse(item.margin!)?.toStringAsFixed(1)} %'),
                         if (item.price != null)
-                          Text('Price: Rs ${item.price!.toStringAsFixed(2)}'),
+                          Text('Price: Rs ${double.tryParse(item.price!)?.toStringAsFixed(2)}'),
                         Text('Date: ${item.customDate}'),
                         Text('Time: ${item.customTime}'),
                       ],

@@ -49,7 +49,12 @@ class _PreordersViewState extends State<PreordersView> {
 
   void _addItemToList(String itemName, int quantity) {
     setState(() {
-      _selectedItems.add(SelectedItem(itemName, quantity));
+      final existingItemIndex = _selectedItems.indexWhere((item) => item.itemName == itemName);
+      if (existingItemIndex >= 0) {
+        _selectedItems.removeAt(existingItemIndex); // Unselect if already selected
+      } else {
+        _selectedItems.add(SelectedItem(itemName, quantity));
+      }
     });
   }
 
@@ -211,6 +216,8 @@ class _PreordersViewState extends State<PreordersView> {
                             final itemName = _filteredItemNames[index];
                             final item =
                                 _averageQuantityResponse!.items[itemName];
+                            final isSelected = _selectedItems.any(
+                                (selectedItem) => selectedItem.itemName == itemName);
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 18, vertical: 7),
@@ -225,10 +232,10 @@ class _PreordersViewState extends State<PreordersView> {
                                 ),
                                 title: Text(
                                   itemName,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.0,
-                                    color: Colors.blueGrey,
+                                    color: isSelected ? Colors.blue : Colors.blueGrey,
                                   ),
                                 ),
                                 subtitle: Column(
@@ -263,14 +270,10 @@ class _PreordersViewState extends State<PreordersView> {
                                   ],
                                 ),
                                 trailing: Icon(
-                                  item!.difference!.isNegative ?? false
-                                      ? Icons.arrow_downward
-                                      : Icons.arrow_upward,
-                                  color: item!.difference!.isNegative ?? false
-                                      ? Colors.redAccent
-                                      : Colors.green,
+                                  isSelected ? Icons.check_circle : Icons.add_circle_outline,
+                                  color: isSelected ? Colors.blue : Colors.green,
                                 ),
-                                tileColor: Colors.white,
+                                tileColor: isSelected ? Colors.blue[50] : Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   side: BorderSide(color: Colors.grey[300]!),
