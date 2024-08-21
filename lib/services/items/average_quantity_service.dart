@@ -23,6 +23,8 @@ class AverageQuantityService {
         headers: headers,
       );
 
+      print(response.body);
+
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         return AverageQuantityResponse.fromJson(jsonData);

@@ -24,9 +24,9 @@ class _AdditemViewState extends State<AdditemView> {
   void _addItem() {
     final itemName = _itemNameController.text;
     final qty = double.tryParse(_qtyController.text) ?? 0;
-    final rate = double.tryParse(_rateController.text) ?? 0.0;
+    final rate = _rateController.text as String ?? "0.00";
 
-    if (itemName.isEmpty || qty <= 0 || rate <= 0) {
+    if (itemName.isEmpty || qty <= 0 ) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Please enter valid item details')),
       );

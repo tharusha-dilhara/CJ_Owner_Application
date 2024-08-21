@@ -41,7 +41,10 @@ class _EditPricingItemState extends State<EditPricingItem> {
   }
 
   double _calculateMargin(double price, double discount,double rate) {
-    return ((price - rate)/rate) * 100;
+    // print("price ${price} discount${discount} rate ${rate}");
+    // print(((price - rate)/rate) * 100);
+    // print(((price - rate)/rate) * 100);
+    return ((price - rate)/rate) * 100 ;
   }
 
   void _updateMargin() {
@@ -60,15 +63,16 @@ class _EditPricingItemState extends State<EditPricingItem> {
       });
 
       final double discount = double.tryParse(_discountController.text) ?? 0;
-      final double price = double.tryParse(_priceController.text) ?? 0;
-      final double rate = double.tryParse(_rateController.text) ?? 0;
-      final double margin = _calculateMargin(price, discount,rate);
+      final double price = double.tryParse(_priceController.text) ?? 0.00;
+      final double rate = double.tryParse(_rateController.text) ?? 0.00;
+      final double margin = _calculateMargin(price, discount,rate) ?? 0.00;
+      print(margin);
 
       final success = await _updateService.updatePricingItem(
         itemName: widget.item.itemName,
         discount: _discountController.text,
         price: _priceController.text,
-        margin: margin.toStringAsFixed(2), // Rounded to 2 decimal places
+        margin: margin.toStringAsFixed(1), // Rounded to 2 decimal places
       );
 
       setState(() {

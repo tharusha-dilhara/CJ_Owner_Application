@@ -7,6 +7,7 @@ class ManageSalesRepModel {
   final String mobileNumber;
   final String branchname;
   final String email;
+  final String password;
   final String customDate;
   final String customTime;
 
@@ -19,6 +20,7 @@ class ManageSalesRepModel {
     required this.mobileNumber,
     required this.branchname,
     required this.email,
+    required this.password,
     this.customDate = '',
     this.customTime = '',
   });
@@ -33,6 +35,7 @@ class ManageSalesRepModel {
       'mobileNumber': mobileNumber,
       'branchname': branchname,
       'email': email,
+      'password': password,
       'customDate': customDate,
       'customTime': customTime,
     };
@@ -48,6 +51,7 @@ class ManageSalesRepModel {
       mobileNumber: json['mobileNumber'],
       branchname: json['branchname'],
       email: json['email'],
+      password: json['password'],
       customDate: json['customDate'] ?? '',
       customTime: json['customTime'] ?? '',
     );

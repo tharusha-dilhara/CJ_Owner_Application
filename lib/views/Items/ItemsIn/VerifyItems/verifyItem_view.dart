@@ -47,9 +47,9 @@ class _VerifyitemViewState extends State<VerifyitemView> {
     // Create a zero-value entry with the same item_name
     Map<String, dynamic> zeroValueEntry = {
       'item_name': item['item_name'],
-      'qty': 0.0,
-      'rate': 0.0,
-      'price': 0.0,
+      'qty': 0.00,
+      'rate': 0.00,
+      'price': 0.00,
     };
 
     // Add the zero-value entry to itemsUpdates list
@@ -162,7 +162,7 @@ class _VerifyitemViewState extends State<VerifyitemView> {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            'Qty: ${item['qty'].toStringAsFixed(2)}',
+                            'Qty: ${item['qty']}',
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 14.0,
@@ -170,7 +170,7 @@ class _VerifyitemViewState extends State<VerifyitemView> {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            'Rate: ${item['rate'].toStringAsFixed(2)}',
+                            'Rate: ${item['rate']}',
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 14.0,
@@ -178,7 +178,7 @@ class _VerifyitemViewState extends State<VerifyitemView> {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            'Price: ${item['price'].toStringAsFixed(2)}',
+                            'Price: ${item['price']}',
                             style: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 14.0,
@@ -297,7 +297,7 @@ class _VerifyFailedDialogState extends State<VerifyFailedDialog> {
                 labelText: 'Rate',
                 border: OutlineInputBorder(),
               ),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
             ),
             SizedBox(height: 10),
             TextField(
@@ -323,8 +323,8 @@ class _VerifyFailedDialogState extends State<VerifyFailedDialog> {
           onPressed: () {
             final updatedItem = {
               'item_name': itemNameController.text,
-              'qty': double.tryParse(qtyController.text) ?? 0.0,
-              'rate': double.tryParse(rateController.text) ?? 0.0,
+              'qty': double.tryParse(qtyController.text) ?? 0.00,
+              'rate': double.tryParse(rateController.text)?.toStringAsFixed(2) ?? 0.00,
             };
             Navigator.of(context).pop(updatedItem); // Return the updated item
           },
@@ -333,4 +333,5 @@ class _VerifyFailedDialogState extends State<VerifyFailedDialog> {
       ],
     );
   }
+
 }

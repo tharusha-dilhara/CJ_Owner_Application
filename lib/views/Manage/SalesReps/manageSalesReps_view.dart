@@ -23,6 +23,7 @@ class _ManagesalesrepsViewState extends State<ManagesalesrepsView> {
   late TextEditingController dobController;
   late TextEditingController mobileNumberController;
   late TextEditingController emailController;
+  late TextEditingController passwordController;
   late String id;
   bool isLoading = false; // New loading state
 
@@ -42,6 +43,7 @@ class _ManagesalesrepsViewState extends State<ManagesalesrepsView> {
     mobileNumberController =
         TextEditingController(text: widget.salesRep.mobileNumber);
     emailController = TextEditingController(text: widget.salesRep.email);
+    passwordController = TextEditingController(text: '');
     _fetchBranches();
   }
 
@@ -103,6 +105,7 @@ class _ManagesalesrepsViewState extends State<ManagesalesrepsView> {
       mobileNumber: mobileNumberController.text,
       email: emailController.text,
       branchname: _selectedBranch ?? '',
+      password: passwordController.text ?? '', // New password field
     );
 
     final success = await _service.updateSalesRep(salesRep);
@@ -224,6 +227,14 @@ class _ManagesalesrepsViewState extends State<ManagesalesrepsView> {
                       controller: emailController,
                       decoration: const InputDecoration(
                         labelText: 'Email',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: passwordController,
+                      decoration: const InputDecoration(
+                        labelText: 'Password',
                         border: OutlineInputBorder(),
                       ),
                     ),

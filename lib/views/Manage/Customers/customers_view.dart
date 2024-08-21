@@ -59,15 +59,15 @@ class _CustomersViewState extends State<CustomersView> {
         padding: const EdgeInsets.all(28.0),
         child: Column(
           children: [
-            MaterialButton(
-              minWidth: double.infinity,
-              color: Colors.green,
-              height: 55,
-              onPressed: () {
-                GoRouter.of(context).pushNamed('addCustomers');
-              },
-              child: const Text("Add Customers", style: TextStyle(fontSize: 26)),
-            ),
+            // MaterialButton(
+            //   minWidth: double.infinity,
+            //   color: Colors.green,
+            //   height: 55,
+            //   onPressed: () {
+            //     GoRouter.of(context).pushNamed('addCustomers');
+            //   },
+            //   child: const Text("Add Customers", style: TextStyle(fontSize: 26)),
+            // ),
             const SizedBox(height: 20),
             Expanded(
               child: RefreshIndicator(

@@ -1,16 +1,14 @@
-// lib/models/stock_item_model.dart
-
 class StockItemmodel {
   final String? id;
   final String itemName;
   final String companyName;
   final String companyAddress;
   final int qty;
-  final int rate;
-  final int amountOfItems;
-  final int? discount;
-  final String? margin;
-  final int? price;
+  final String rate;
+  final String amountOfItems;
+  final String? discount;
+  final String? margin; // Changed from String? to double?
+  final String? price;
   final String customDate;
   final String customTime;
 
@@ -23,7 +21,7 @@ class StockItemmodel {
     required this.rate,
     required this.amountOfItems,
     this.discount,
-    this.margin,
+    this.margin, // Updated type
     this.price,
     required this.customDate,
     required this.customTime,
@@ -37,10 +35,10 @@ class StockItemmodel {
       companyName: json['companyName'],
       companyAddress: json['companyAddress'],
       qty: json['qty'],
-      rate: json['rate'],
-      amountOfItems: json['amountOfItems'],
-      discount: json['discount'],
-      margin: json['margin'],
+      rate: json['rate'] ,
+      amountOfItems: json['amountOfItems'] ,
+      discount: json['discount'] ,
+      margin: json['margin'], // Convert to double if it's a string
       price: json['price'],
       customDate: json['customDate'],
       customTime: json['customTime'],

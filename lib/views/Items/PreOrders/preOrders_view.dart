@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cjowner/models/average_quantity_model.dart';
 import 'package:cjowner/services/items/average_quantity_service.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
+import 'package:intl/intl.dart'; // Add this import for date formatting
 
 class PreordersView extends StatefulWidget {
   const PreordersView({super.key});
@@ -15,6 +19,7 @@ class _PreordersViewState extends State<PreordersView> {
   bool _isLoading = true;
   String _searchQuery = '';
   List<String> _filteredItemNames = [];
+  List<SelectedItem> _selectedItems = [];
 
   @override
   void initState() {
@@ -35,12 +40,126 @@ class _PreordersViewState extends State<PreordersView> {
     setState(() {
       _searchQuery = query;
       _filteredItemNames = _averageQuantityResponse?.items.keys
-              .where((itemName) => itemName
-                  .toLowerCase()
-                  .contains(_searchQuery.toLowerCase()))
+              .where((itemName) =>
+                  itemName.toLowerCase().contains(_searchQuery.toLowerCase()))
               .toList() ??
           [];
     });
+  }
+
+  void _addItemToList(String itemName, int quantity) {
+    setState(() {
+      _selectedItems.add(SelectedItem(itemName, quantity));
+    });
+  }
+
+  void _showAddQuantityDialog(String itemName) {
+    int quantity = 0;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Add Quantity for $itemName'),
+        content: TextField(
+          keyboardType: TextInputType.number,
+          onChanged: (value) {
+            quantity = int.parse(value);
+          },
+          decoration: const InputDecoration(hintText: "Enter quantity"),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              _addItemToList(itemName, quantity);
+              Navigator.of(context).pop();
+            },
+            child: const Text('Add'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _generatePdf() async {
+    final pdf = pw.Document();
+
+    final dateFormat = DateFormat('dd/MM/yyyy');
+    final timeFormat = DateFormat('HH:mm:ss');
+    final currentDate = dateFormat.format(DateTime.now());
+    final currentTime = timeFormat.format(DateTime.now());
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Center(
+                child: pw.Text(
+                  'CJ System',
+                  style: pw.TextStyle(
+                    fontSize: 28,
+                    fontWeight: pw.FontWeight.bold,
+                    color: PdfColors.blueGrey800,
+                  ),
+                ),
+              ),
+              pw.SizedBox(height: 20),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text('Date: $currentDate',
+                      style: pw.TextStyle(fontSize: 14)),
+                  pw.Text('Time: $currentTime',
+                      style: pw.TextStyle(fontSize: 14)),
+                ],
+              ),
+              pw.Divider(),
+              pw.SizedBox(height: 20),
+              pw.Table.fromTextArray(
+                border: pw.TableBorder.all(color: PdfColors.grey),
+                headers: ['Item Name', 'Quantity'],
+                headerStyle: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold, fontSize: 16),
+                headerDecoration: pw.BoxDecoration(
+                  color: PdfColors.grey300,
+                ),
+                cellHeight: 40,
+                cellAlignments: {
+                  0: pw.Alignment.centerLeft,
+                  1: pw.Alignment.centerRight,
+                },
+                data: _selectedItems
+                    .map((item) =>
+                        [item.itemName, item.quantity.toString()])
+                    .toList(),
+              ),
+              pw.SizedBox(height: 20),
+              pw.Divider(),
+              pw.Align(
+                alignment: pw.Alignment.centerRight,
+                child: pw.Text(
+                  'Total Items: ${_selectedItems.length}',
+                  style: pw.TextStyle(
+                    fontSize: 16,
+                    fontWeight: pw.FontWeight.bold,
+                    color: PdfColors.blueGrey800,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+
+    await Printing.layoutPdf(
+        onLayout: (PdfPageFormat format) async => pdf.save());
   }
 
   @override
@@ -53,6 +172,12 @@ class _PreordersViewState extends State<PreordersView> {
           "Preorders",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf),
+            onPressed: _selectedItems.isNotEmpty ? _generatePdf : null,
+          ),
+        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -84,12 +209,15 @@ class _PreordersViewState extends State<PreordersView> {
                           itemCount: _filteredItemNames.length,
                           itemBuilder: (context, index) {
                             final itemName = _filteredItemNames[index];
-                            final item = _averageQuantityResponse!.items[itemName];
+                            final item =
+                                _averageQuantityResponse!.items[itemName];
                             return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18, vertical: 7),
                               child: ListTile(
+                                onTap: () => _showAddQuantityDialog(itemName),
                                 contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8.0),
+                                    horizontal: 16.0, vertical: 8.0),
                                 leading: const Icon(
                                   Icons.fastfood,
                                   color: Colors.orangeAccent,
@@ -126,7 +254,8 @@ class _PreordersViewState extends State<PreordersView> {
                                       'Difference: ${item?.difference}',
                                       style: TextStyle(
                                         fontSize: 16.0,
-                                        color: item!.difference!.isNegative ?? false
+                                        color: item!.difference!.isNegative ??
+                                                false
                                             ? Colors.redAccent
                                             : Colors.green,
                                       ),
@@ -156,4 +285,11 @@ class _PreordersViewState extends State<PreordersView> {
                 ),
     );
   }
+}
+
+class SelectedItem {
+  final String itemName;
+  final int quantity;
+
+  SelectedItem(this.itemName, this.quantity);
 }

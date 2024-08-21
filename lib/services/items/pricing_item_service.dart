@@ -22,6 +22,7 @@ class StockPricingService {
       Uri.parse('$baseUrl/getAllStockItems'),
       headers: headers,
     );
+    print(response.body);
 
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body);

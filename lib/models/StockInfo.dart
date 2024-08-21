@@ -1,6 +1,6 @@
 class StockInfo {
   final String stockOrderIndex;
-  final double totalItemsPrice;
+  final String totalItemsPrice;
   final int itemsCount;
   final String customDate;
   final String customTime;
@@ -19,14 +19,14 @@ class StockInfo {
     // Extracting the items list from JSON and calculating the totalItemsPrice
     final items = json['items'] as List<dynamic>;
 
-    final totalItemsPrice = items.fold<double>(0.0, (sum, item) {
-      final price = (item['price'] ?? 0.0) ;
+    final totalItemsPrice = items.fold<double>(0.00, (sum, item) {
+      final price = double.tryParse(item['price']) ?? 0.00;
       return sum + price;
     });
 
     return StockInfo(
       stockOrderIndex: json['_id'] ?? '',
-      totalItemsPrice: totalItemsPrice,
+      totalItemsPrice: totalItemsPrice.toStringAsFixed(2), // Formatting to 2 decimal places
       itemsCount: items.length,
       customDate: json['customDate'] ?? '',
       customTime: json['customTime'] ?? '',

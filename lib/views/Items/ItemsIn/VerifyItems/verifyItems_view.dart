@@ -81,7 +81,7 @@ class _VerifyitemsViewState extends State<VerifyitemsView> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0)),
                       title: Text(
-                        'Total Items Price: ${stockInfo.totalItemsPrice.toStringAsFixed(2)}\nItems Count: ${stockInfo.itemsCount}',
+                        'Total Items Price: ${stockInfo.totalItemsPrice}\nItems Count: ${stockInfo.itemsCount}',
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
